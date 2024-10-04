@@ -1,9 +1,18 @@
-package io.foodust.escapeRoom;
+package io.foodust.escapeRoom.screen;
 
 import com.badlogic.gdx.Screen;
+import io.foodust.escapeRoom.game.EscapeRoom;
 
-/** First screen of the application. Displayed after the application is created. */
-public class FirstScreen implements Screen {
+/**
+ * First screen of the application. Displayed after the application is created.
+ */
+public class MainMenuScreen implements Screen {
+    private final EscapeRoom escapeRoom;
+
+    public MainMenuScreen(EscapeRoom escapeRoom) {
+        this.escapeRoom = escapeRoom;
+    }
+
     @Override
     public void show() {
         // Prepare your screen here.
