@@ -3,6 +3,7 @@ package io.foodust.escapeRoom.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import io.foodust.escapeRoom.game.EscapeRoom;
+import io.foodust.escapeRoom.object.ObjectManager;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -20,7 +21,7 @@ public class Lwjgl3Launcher {
         configuration.setTitle("EscapeRoom");
         configuration.useVsync(true);
         configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
-        configuration.setWindowedMode(640, 480);
+        configuration.setWindowedMode(ObjectManager.X.intValue(), ObjectManager.Y.intValue());
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
         return configuration;
     }

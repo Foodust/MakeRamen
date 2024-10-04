@@ -15,11 +15,10 @@ import java.util.List;
 @Getter
 @Setter
 public class ObjectManager {
-    private List<BaseObject> objects = new ArrayList<>();
     private Modules modules = new Modules();
     private static ObjectManager instance;
-    public static Float X = 800f;
-    public static Float Y = 420f;
+    public static Float X = 1920f;
+    public static Float Y = 1080f;
 
     public static ObjectManager getInstance() {
         if (instance == null) {
