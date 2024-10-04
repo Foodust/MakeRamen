@@ -1,9 +1,12 @@
 package io.foodust.makeRamen.screen.stage.one;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.foodust.makeRamen.game.MakeRamen;
 import io.foodust.makeRamen.module.Modules;
@@ -49,6 +52,8 @@ public class StageOne implements Screen {
 
     private final TrashObject trash;
 
+    private Sprite heldObject;
+
     private Float limitTime = 3000f;
     private Long score = 0L;
 
@@ -58,21 +63,21 @@ public class StageOne implements Screen {
         this.background = modules.getTextureModule().makeTexture("stage.png");
         this.character = new MainCharacter("character.png", 1600, 300, 70, 100, 1, 1);
 
-        this.beef = new BeefObject("beef.png", 100f, 100f);
-        this.noodle = new NoodleObject("noodle.png", 100f, 200f);
-        this.gosu = new GosuObject("gosu.png", 200f, 100f);
-        this.onion = new OnionObject("onion.png", 200f, 200f);
+        this.beef = new BeefObject("beef.png", 400f, 700f);
+        this.noodle = new NoodleObject("noodle.png", 400f, 800f);
+        this.gosu = new GosuObject("gosu.png", 250f, 700f);
+        this.onion = new OnionObject("onion.png", 250f, 800f);
 
-        this.pot = new PotObject("pot.png", 600f, 400f);
+        this.pot = new PotObject("pot.png", 800f, 500f);
 
-        this.plat = new PlatObject("plate.png", 1200f, 600f);
+        this.plat = new PlatObject("plate.png", 1000f, 500f);
 
-        this.stoveOne = new StoveObject("stove.png", 100f, 600f);
-        this.stoveTwo = new StoveObject("stove.png", 100f, 800f);
-        this.stoveThree = new StoveObject("stove.png", 200f, 600f);
-        this.stoveFour = new StoveObject("stove.png", 200f, 800f);
+        this.stoveOne = new StoveObject("stove.png", 400f, 300f);
+        this.stoveTwo = new StoveObject("stove.png", 400f, 400f);
+        this.stoveThree = new StoveObject("stove.png", 500f, 300f);
+        this.stoveFour = new StoveObject("stove.png", 500f, 400f);
 
-        this.trash = new TrashObject("trash.png", 50f, 800);
+        this.trash = new TrashObject("trash.png", 150f, 100);
 
         stoves.add(stoveOne);
         stoves.add(stoveTwo);
@@ -95,12 +100,23 @@ public class StageOne implements Screen {
     public void render(float deltaTime) {
         ScreenUtils.clear(0, 0, 0, 1);
         batch.begin();
+        batch.draw(background, 0, 0);
+        trash.getSprite().draw(batch);
+        plat.getSprite().draw(batch);
 
+        character.getSprite().draw(batch);
         for (StoveObject stove : stoves) {
-            stove.render(batch);
+            stove.getSprite().draw(batch);
         }
         for (BaseObject object : objects) {
             object.getSprite().draw(batch);
+        }
+
+        if (heldObject != null) {
+            Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            camera.unproject(mousePos);
+            heldObject.draw(batch);
+            heldObject.setPosition(mousePos.x - heldObject.getWidth() / 2, mousePos.y - heldObject.getHeight() / 2);
         }
 
         batch.end();
@@ -151,10 +167,12 @@ public class StageOne implements Screen {
             return;
         }
 
+
         for (BaseObject object : objects) {
             if (object.isClicked(camera) && character.getClickObject() == null) {
                 character.setClickObject(object);
                 character.setItemStatus(object.getItemStatus());
+                heldObject = modules.getSpriteModule().makeSprite(object.getTexture());
                 break;
             }
         }
@@ -170,6 +188,7 @@ public class StageOne implements Screen {
                 break;
             }
         }
+
     }
 
     private void calculateScore(StoveObject stove) {
@@ -198,5 +217,6 @@ public class StageOne implements Screen {
     private void resetHand() {
         character.setClickObject(null);
         character.setItemStatus(ItemStatus.NONE);
+        heldObject = null;
     }
 }
