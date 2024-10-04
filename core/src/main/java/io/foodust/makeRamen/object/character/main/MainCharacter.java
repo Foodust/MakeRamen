@@ -18,7 +18,7 @@ public class MainCharacter extends BaseCharacter {
 
     public MainCharacter(String textureName, float x, float y, float width, float height, float sizeWidth, float sizeHeight) {
         super(textureName, x, y, width, height, sizeWidth, sizeHeight);
-        this.head = ObjectManager.getInstance().getModules().getSpriteModule().makeSprite(ObjectManager.getInstance().getModules().getTextureModule().makeTexture("normal.png"));
+        this.head = ObjectManager.getInstance().getModules().getSpriteModule().makeSprite(ObjectManager.getInstance().getModules().getTextureModule(). makeTexture("normal.png"));
         this.head.setX(x);
         this.head.setY(y - 100);
     }

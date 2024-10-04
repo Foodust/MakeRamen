@@ -41,7 +41,6 @@ public class StageOne implements Screen {
     private final PlatObject plat;
     private final PotObject pot;
     private final OnionObject onion;
-    private final WaterObject water;
 
     private final StoveObject stoveOne;
     private final StoveObject stoveTwo;
@@ -57,17 +56,16 @@ public class StageOne implements Screen {
         this.batch = makeRamen.getBatch();
         this.camera = makeRamen.getCamera();
         this.background = modules.getTextureModule().makeTexture("stage.png");
-        this.character = new MainCharacter("character", 1600, 300, 70, 100, 1, 1);
+        this.character = new MainCharacter("character.png", 1600, 300, 70, 100, 1, 1);
 
         this.beef = new BeefObject("beef.png", 100f, 100f);
         this.noodle = new NoodleObject("noodle.png", 100f, 200f);
         this.gosu = new GosuObject("gosu.png", 200f, 100f);
-        this.onion = new OnionObject("ramen.png", 200f, 200f);
+        this.onion = new OnionObject("onion.png", 200f, 200f);
 
         this.pot = new PotObject("pot.png", 600f, 400f);
-        this.water = new WaterObject("water.png", 600f, 600f);
 
-        this.plat = new PlatObject("plat.png", 1200f, 600f);
+        this.plat = new PlatObject("plate.png", 1200f, 600f);
 
         this.stoveOne = new StoveObject("stove.png", 100f, 600f);
         this.stoveTwo = new StoveObject("stove.png", 100f, 800f);
@@ -86,8 +84,6 @@ public class StageOne implements Screen {
         objects.add(noodle);
         objects.add(pot);
         objects.add(onion);
-        objects.add(water);
-
     }
 
     @Override

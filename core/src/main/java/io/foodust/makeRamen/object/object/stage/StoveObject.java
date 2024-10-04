@@ -11,7 +11,10 @@ import io.foodust.makeRamen.object.object.stage.status.ItemStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +27,6 @@ public class StoveObject extends BaseObject {
     private final Sprite gosu;
     private final Sprite noodle;
     private final Sprite onion;
-    private final Sprite water;
 
     private final List<Texture> objets = new ArrayList<>();
 
@@ -34,21 +36,18 @@ public class StoveObject extends BaseObject {
         super(textureName, x, y);
         Arrays.stream(ItemStatus.values()).forEach(value -> isItem.put(value, false));
         Texture potTexture = modules.getTextureModule().makeTexture("pot.png");
-        Texture waterTexture = modules.getTextureModule().makeTexture("water.png");
         Texture noodleTexture = modules.getTextureModule().makeTexture("noodle.png");
         Texture onionTexture = modules.getTextureModule().makeTexture("onion.png");
         Texture beefTexture = modules.getTextureModule().makeTexture("beef.png");
         Texture gosuTexture = modules.getTextureModule().makeTexture("gosu.png");
 
         this.pot = modules.getSpriteModule().makeSprite(potTexture);
-        this.water = modules.getSpriteModule().makeSprite(waterTexture);
         this.noodle = modules.getSpriteModule().makeSprite(noodleTexture);
         this.onion = modules.getSpriteModule().makeSprite(onionTexture);
         this.beef = modules.getSpriteModule().makeSprite(beefTexture);
         this.gosu = modules.getSpriteModule().makeSprite(gosuTexture);
 
         objets.add(potTexture);
-        objets.add(waterTexture);
         objets.add(noodleTexture);
         objets.add(onionTexture);
         objets.add(beefTexture);
@@ -71,7 +70,6 @@ public class StoveObject extends BaseObject {
             if (value) {
                 switch (key) {
                     case POT -> pot.draw(batch);
-                    case WATER -> water.draw(batch);
                     case NOODLE -> noodle.draw(batch);
                     case ONION -> onion.draw(batch);
                     case BEEF -> beef.draw(batch);
@@ -83,7 +81,6 @@ public class StoveObject extends BaseObject {
 
     private void updatePosition() {
         pot.setPosition(sprite.getX(), sprite.getY());
-        water.setPosition(sprite.getX(), sprite.getY());
         noodle.setPosition(sprite.getX(), sprite.getY());
         onion.setPosition(sprite.getX(), sprite.getY());
         beef.setPosition(sprite.getX(), sprite.getY());
