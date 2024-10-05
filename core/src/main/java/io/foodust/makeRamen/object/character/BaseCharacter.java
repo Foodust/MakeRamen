@@ -23,10 +23,15 @@ public abstract class BaseCharacter {
         this.rectangle = new Rectangle(this.sprite.getX(), this.sprite.getY(), this.sprite.getWidth(), this.sprite.getHeight());
     }
 
+    public BaseCharacter(String textureName, float x, float y) {
+        this(textureName);
+        this.sprite.setPosition(x, y);
+        this.rectangle.set(x, y, sprite.getWidth(), sprite.getHeight());
+    }
+
     public BaseCharacter(String textureName, float x, float y, float width, float height) {
         this(textureName);
         this.sprite.setPosition(x, y);
-        this.sprite.setBounds(x, y, width, height);
         this.rectangle.set(x, y, width, height);
     }
 

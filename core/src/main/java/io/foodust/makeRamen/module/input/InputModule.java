@@ -14,12 +14,9 @@ public class InputModule {
         return Gdx.input.isKeyPressed(number);
     }
 
-    public Boolean getTouch() {
-        return Gdx.input.isTouched();
-    }
 
     public Boolean getTouch(OrthographicCamera camera, Rectangle rectangle) {
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.justTouched()) {
             Vector3 touchPoint = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPoint);
             return rectangle.contains(touchPoint.x, touchPoint.y);

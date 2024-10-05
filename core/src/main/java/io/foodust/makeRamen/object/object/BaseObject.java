@@ -3,6 +3,7 @@ package io.foodust.makeRamen.object.object;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import io.foodust.makeRamen.object.ObjectManager;
 import io.foodust.makeRamen.object.object.stage.status.ItemStatus;
@@ -23,6 +24,11 @@ public class BaseObject {
 
     public BaseObject(String textureName) {
         this.texture = new Texture(textureName);
+        this.sprite = new Sprite(texture);
+        this.sprite.setOriginCenter();
+    }
+
+    public BaseObject(Texture texture) {
         this.sprite = new Sprite(texture);
         this.sprite.setOriginCenter();
     }
@@ -58,7 +64,14 @@ public class BaseObject {
     public Boolean isClicked(OrthographicCamera camera) {
         return ObjectManager.getInstance().getModules().getInputModule().getTouch(camera, this.getRectangle());
     }
+
     public void dispose() {
-        texture.dispose();
+        if (texture != null) {
+            texture.dispose();
+        }
+    }
+
+    public void draw(SpriteBatch batch) {
+        sprite.draw(batch);
     }
 }

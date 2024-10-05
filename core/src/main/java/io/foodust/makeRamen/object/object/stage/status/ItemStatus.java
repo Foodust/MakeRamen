@@ -7,6 +7,7 @@ public enum ItemStatus {
     BEEF,
     ONION,
     GOSU,
+    WATER,
 
     STOVE,
 }
