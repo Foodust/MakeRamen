@@ -84,6 +84,8 @@ public class StageOne implements Screen {
         this.stoveThree = new RamenObject("none.png", 500f, 300f);
         this.stoveFour = new RamenObject("none.png", 500f, 400f);
 
+
+
         this.trash = new TrashObject("trash.png", 150f, 100);
 
         ramens.add(stoveOne);
@@ -187,6 +189,7 @@ public class StageOne implements Screen {
                 character.setClickObject(ramen);
                 character.setItemStatus(ItemStatus.STOVE);
                 heldObject = ramen;
+
                 break;
             } else if (character.getClickObject() != null && !ramen.getIsItem().get(character.getItemStatus())) {
                 if (character.getItemStatus() != ItemStatus.POT && !ramen.getIsItem().get(ItemStatus.POT)) {
@@ -212,19 +215,19 @@ public class StageOne implements Screen {
     private void calculateScore(RamenObject ramen) {
         long addScore = 0;
         long itemCount = ramen.getIsItem().entrySet().stream().filter(Map.Entry::getValue).count();
-        if (ramen.getCookTime() < 5 || itemCount == 2) {
+        if (ramen.getCookTime() < 3 || itemCount == 2) {
             addScore -= 60;
             character.playAngry();
-        } else if (ramen.getCookTime() < 12 || itemCount == 3) {
+        } else if (ramen.getCookTime() < 6 || itemCount == 3) {
             addScore += 10;
             character.playGood();
-        } else if (ramen.getCookTime() < 15 && itemCount > 5) {
+        } else if (ramen.getCookTime() < 10 && itemCount > 5) {
             addScore += 40;
             character.playPerfect();
-        } else if (ramen.getCookTime() < 25 || itemCount <= 1) {
+        } else if (ramen.getCookTime() < 13 || itemCount <= 1) {
             addScore -= 60;
             character.playAngry();
-        } else if (ramen.getCookTime() >= 25) {
+        } else if (ramen.getCookTime() >= 20) {
             addScore -= 120;
             character.playVeryAngry();
         }
