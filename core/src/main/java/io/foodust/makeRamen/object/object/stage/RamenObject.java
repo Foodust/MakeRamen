@@ -62,7 +62,7 @@ public class RamenObject extends BaseObject {
 
 
     public void move(float x, float y) {
-        sprite.setPosition(sprite.getX() + x, sprite.getY() + y);
+        sprite.setPosition(x,y);
         updatePosition();
         updateBounds();
     }

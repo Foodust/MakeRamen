@@ -41,6 +41,7 @@ public class StageOne implements Screen {
     private final ScoreText scoreText;
 
     private final List<BaseObject> objects = new ArrayList<>();
+    private final List<StoveObject> stoves = new ArrayList<>();
     private final List<RamenObject> ramens = new ArrayList<>();
     private final BeefObject beef;
     private final GosuObject gosu;
@@ -50,10 +51,10 @@ public class StageOne implements Screen {
     private final WaterObject water;
     private final OnionObject onion;
 
-    private final RamenObject stoveOne;
-    private final RamenObject stoveTwo;
-    private final RamenObject stoveThree;
-    private final RamenObject stoveFour;
+    private final StoveObject stoveOne;
+    private final StoveObject stoveTwo;
+    private final StoveObject stoveThree;
+    private final StoveObject stoveFour;
 
     private final TrashObject trash;
 
@@ -79,19 +80,18 @@ public class StageOne implements Screen {
 
         this.plat = new PlatObject("plate.png", 1000f, 500f);
 
-        this.stoveOne = new RamenObject("none.png", 400f, 300f);
-        this.stoveTwo = new RamenObject("none.png", 400f, 400f);
-        this.stoveThree = new RamenObject("none.png", 500f, 300f);
-        this.stoveFour = new RamenObject("none.png", 500f, 400f);
-
+        this.stoveOne = new StoveObject("stove.png", 400f, 300f);
+        this.stoveTwo = new StoveObject("stove.png", 400f, 400f);
+        this.stoveThree = new StoveObject("stove.png", 500f, 300f);
+        this.stoveFour = new StoveObject("stove.png", 500f, 400f);
 
 
         this.trash = new TrashObject("trash.png", 150f, 100);
 
-        ramens.add(stoveOne);
-        ramens.add(stoveTwo);
-        ramens.add(stoveThree);
-        ramens.add(stoveFour);
+        stoves.add(stoveOne);
+        stoves.add(stoveTwo);
+        stoves.add(stoveThree);
+        stoves.add(stoveFour);
 
         objects.add(beef);
         objects.add(gosu);
@@ -120,6 +120,9 @@ public class StageOne implements Screen {
         scoreText.draw(batch);
 
 
+        for (StoveObject stove : stoves) {
+            stove.draw(batch);
+        }
         for (RamenObject ramen : ramens) {
             ramen.draw(batch);
         }
@@ -130,8 +133,13 @@ public class StageOne implements Screen {
         if (heldObject != null) {
             Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(mousePos);
-            heldObject.getSprite().setPosition(mousePos.x - heldObject.getSprite().getWidth() / 2, mousePos.y - heldObject.getSprite().getHeight() / 2);
+            float x = mousePos.x - heldObject.getSprite().getWidth() / 2;
+            float y = mousePos.y - heldObject.getSprite().getHeight() / 2;
+            heldObject.getSprite().setPosition(x, y);
             heldObject.draw(batch);
+            if (heldObject instanceof RamenObject ramenObject) {
+                ramenObject.move(x, y);
+            }
         }
 
         batch.end();
@@ -182,14 +190,13 @@ public class StageOne implements Screen {
             return;
         }
 
-
         for (RamenObject ramen : ramens) {
             if (!ramen.isClicked(camera)) continue;
             if (character.getClickObject() == null && character.getItemStatus().equals(ItemStatus.NONE)) {
                 character.setClickObject(ramen);
                 character.setItemStatus(ItemStatus.STOVE);
                 heldObject = ramen;
-
+                ramens.remove(ramen);
                 break;
             } else if (character.getClickObject() != null && !ramen.getIsItem().get(character.getItemStatus())) {
                 if (character.getItemStatus() != ItemStatus.POT && !ramen.getIsItem().get(ItemStatus.POT)) {
@@ -200,7 +207,21 @@ public class StageOne implements Screen {
                 break;
             }
         }
+        for (StoveObject stove : stoves) {
+            float stoveCenterX = stove.getSprite().getX() + stove.getSprite().getWidth() / 2;
+            float stoveCenterY = stove.getSprite().getY() + stove.getSprite().getHeight() / 2;
 
+            boolean ramenExists = ramens.stream().anyMatch(ramen ->
+                Math.abs(ramen.getSprite().getX() + ramen.getSprite().getWidth() / 2 - stoveCenterX) < 1 &&
+                    Math.abs(ramen.getSprite().getY() + ramen.getSprite().getHeight() / 2 - stoveCenterY) < 1
+            );
+            if (ramenExists) continue;
+            if (!stove.isClicked(camera) || character.getItemStatus() != ItemStatus.POT) continue;
+            RamenObject ramenObject = new RamenObject("pot.png", stoveCenterX, stoveCenterY);
+            ramenObject.getIsItem().put(ItemStatus.POT, true);
+            ramens.add(ramenObject);
+            resetHand();
+        }
         for (BaseObject object : objects) {
             if (object.isClicked(camera) && character.getClickObject() == null) {
                 character.setClickObject(object);
@@ -233,6 +254,7 @@ public class StageOne implements Screen {
         }
         addScore += itemCount * 20;
         score += addScore;
+        scoreText.setText(score.toString());
     }
 
     private void resetHand() {
