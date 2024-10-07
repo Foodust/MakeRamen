@@ -17,6 +17,7 @@ public class TimeObject extends BaseObject {
     public TimeObject(String textureName, float x, float y) {
         super(textureName, x, y);
         this.bar = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("beef.png"));
+        this.bar.setPosition(x, y);
         this.maxWidth = sprite.getWidth();
     }
 

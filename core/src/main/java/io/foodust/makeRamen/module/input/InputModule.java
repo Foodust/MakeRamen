@@ -10,8 +10,8 @@ public class InputModule {
     public InputModule() {
     }
 
-    public Boolean getKeyBoardInput(Integer number) {
-        return Gdx.input.isKeyPressed(number);
+    public Boolean getKeyBoardTouch(Integer number) {
+        return Gdx.input.isKeyJustPressed(number);
     }
 
 

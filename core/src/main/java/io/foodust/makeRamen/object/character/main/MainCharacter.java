@@ -58,7 +58,6 @@ public class MainCharacter extends BaseCharacter {
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         headSprite.draw(batch);
-        update();
     }
 
     @Override
@@ -66,7 +65,7 @@ public class MainCharacter extends BaseCharacter {
         super.dispose();
     }
 
-    private void update() {
+    public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         nowStatusTime += deltaTime;
         rotationTime += deltaTime;

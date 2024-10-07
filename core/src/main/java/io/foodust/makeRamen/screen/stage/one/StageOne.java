@@ -1,6 +1,7 @@
 package io.foodust.makeRamen.screen.stage.one;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,6 +15,8 @@ import io.foodust.makeRamen.module.text.ScoreText;
 import io.foodust.makeRamen.object.ObjectManager;
 import io.foodust.makeRamen.object.character.main.MainCharacter;
 import io.foodust.makeRamen.object.object.BaseObject;
+import io.foodust.makeRamen.object.object.menu.QuitButton;
+import io.foodust.makeRamen.object.object.menu.RestartButton;
 import io.foodust.makeRamen.object.object.stage.*;
 import io.foodust.makeRamen.object.object.stage.item.*;
 import io.foodust.makeRamen.object.object.stage.status.ItemStatus;
@@ -61,8 +64,12 @@ public class StageOne implements Screen {
 
     private Long score = 0L;
 
-    private final Random random = new Random();
+    private RestartButton restartButton;
+    private QuitButton quitButton;
+    private Boolean stopGame = false;
 
+
+    private final Random random = new Random();
 
     public StageOne(MakeRamen makeRamen) {
         this.batch = makeRamen.getBatch();
@@ -88,6 +95,9 @@ public class StageOne implements Screen {
         this.trash = new TrashObject("trash.png", 150f, 100);
 
         this.timeObject = new TimeObject("time.png", ObjectManager.X / 2, ObjectManager.Y - 200);
+
+        this.restartButton = new RestartButton("enter.png", ObjectManager.X / 2, ObjectManager.Y / 2 + 200);
+        this.quitButton = new QuitButton("quit.png", ObjectManager.X / 2, ObjectManager.Y / 2);
 
         stoves.add(stoveOne);
         stoves.add(stoveTwo);
@@ -142,6 +152,10 @@ public class StageOne implements Screen {
                 ramenObject.move(x, y);
             }
         }
+        if (stopGame) {
+            restartButton.draw(batch);
+            quitButton.draw(batch);
+        }
 
         batch.end();
         update();
@@ -176,9 +190,20 @@ public class StageOne implements Screen {
         ramens.forEach(RamenObject::dispose);
         objects.forEach(BaseObject::dispose);
         trash.dispose();
+        quitButton.dispose();
+        restartButton.dispose();
     }
 
     private void update() {
+        if (stopGame && modules.getInputModule().getKeyBoardTouch(Input.Keys.ESCAPE)) {
+            stopGame = false;
+        } else if (!stopGame && modules.getInputModule().getKeyBoardTouch(Input.Keys.ESCAPE)) {
+            stopGame = true;
+        }
+        if (stopGame) {
+            return;
+        }
+
         timeObject.update();
 
         if (character.getClickObject() instanceof RamenObject ramen && character.getItemStatus().equals(ItemStatus.STOVE) && plat.isClicked(camera)) {
@@ -191,7 +216,13 @@ public class StageOne implements Screen {
             resetHand();
             return;
         }
+        character.update();
+        updateRamen();
+        updateStove();
+        updateObject();
+    }
 
+    public void updateRamen() {
         for (RamenObject ramen : ramens) {
             if (!ramen.isClicked(camera)) continue;
             if (character.getClickObject() == null && character.getItemStatus().equals(ItemStatus.NONE)) {
@@ -209,6 +240,9 @@ public class StageOne implements Screen {
                 break;
             }
         }
+    }
+
+    public void updateStove() {
         for (StoveObject stove : stoves) {
             float stoveCenterX = stove.getSprite().getX() + stove.getSprite().getWidth() / 2;
             float stoveCenterY = stove.getSprite().getY() + stove.getSprite().getHeight() / 2;
@@ -224,6 +258,9 @@ public class StageOne implements Screen {
             ramens.add(ramenObject);
             resetHand();
         }
+    }
+
+    public void updateObject() {
         for (BaseObject object : objects) {
             if (object.isClicked(camera) && character.getClickObject() == null) {
                 character.setClickObject(object);
@@ -232,7 +269,6 @@ public class StageOne implements Screen {
                 break;
             }
         }
-
     }
 
     private void calculateScore(RamenObject ramen) {
