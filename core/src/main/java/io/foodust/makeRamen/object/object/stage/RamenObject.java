@@ -62,7 +62,7 @@ public class RamenObject extends BaseObject {
 
 
     public void move(float x, float y) {
-        sprite.setPosition(x,y);
+        sprite.setPosition(x, y);
         updatePosition();
         updateBounds();
     }
@@ -80,6 +80,8 @@ public class RamenObject extends BaseObject {
     @Override
     public void draw(SpriteBatch batch) {
         cookTime += Gdx.graphics.getDeltaTime();
+        updatePotColor();
+
         isItem.forEach((key, value) -> {
             if (value) {
                 switch (key) {
@@ -92,6 +94,11 @@ public class RamenObject extends BaseObject {
                 }
             }
         });
+    }
+
+    private void updatePotColor() {
+        float alpha = Math.min(cookTime / 20, 1f); // 알파값으로 사용
+        pot.setColor(1 - alpha, 1 - alpha, 1 - alpha, 1);
     }
 
     @Override

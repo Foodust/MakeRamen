@@ -14,10 +14,7 @@ import io.foodust.makeRamen.module.text.ScoreText;
 import io.foodust.makeRamen.object.ObjectManager;
 import io.foodust.makeRamen.object.character.main.MainCharacter;
 import io.foodust.makeRamen.object.object.BaseObject;
-import io.foodust.makeRamen.object.object.stage.PlatObject;
-import io.foodust.makeRamen.object.object.stage.RamenObject;
-import io.foodust.makeRamen.object.object.stage.StoveObject;
-import io.foodust.makeRamen.object.object.stage.TrashObject;
+import io.foodust.makeRamen.object.object.stage.*;
 import io.foodust.makeRamen.object.object.stage.item.*;
 import io.foodust.makeRamen.object.object.stage.status.ItemStatus;
 import lombok.Getter;
@@ -25,6 +22,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Getter
 public class StageOne implements Screen {
@@ -57,18 +55,20 @@ public class StageOne implements Screen {
     private final StoveObject stoveFour;
 
     private final TrashObject trash;
+    private final TimeObject timeObject;
 
     private BaseObject heldObject;
 
-    private Float limitTime = 3000f;
     private Long score = 0L;
+
+    private final Random random = new Random();
 
 
     public StageOne(MakeRamen makeRamen) {
         this.batch = makeRamen.getBatch();
         this.camera = makeRamen.getCamera();
         this.background = modules.getTextureModule().makeTexture("stage.png");
-        this.character = new MainCharacter("character.png", 1600, 300);
+        this.character = new MainCharacter("character2.png", 1600, 300);
 
         this.beef = new BeefObject("beef.png", 400f, 700f);
         this.noodle = new NoodleObject("noodle.png", 400f, 800f);
@@ -85,8 +85,9 @@ public class StageOne implements Screen {
         this.stoveThree = new StoveObject("stove.png", 500f, 300f);
         this.stoveFour = new StoveObject("stove.png", 500f, 400f);
 
-
         this.trash = new TrashObject("trash.png", 150f, 100);
+
+        this.timeObject = new TimeObject("time.png", ObjectManager.X / 2, ObjectManager.Y - 200);
 
         stoves.add(stoveOne);
         stoves.add(stoveTwo);
@@ -100,7 +101,7 @@ public class StageOne implements Screen {
         objects.add(water);
         objects.add(onion);
 
-        scoreText = new ScoreText(new BitmapFont(), score.toString(), 1600, 700, camera);
+        scoreText = new ScoreText(new BitmapFont(), score.toString(), 1450, 750, camera);
     }
 
     @Override
@@ -116,9 +117,9 @@ public class StageOne implements Screen {
         batch.draw(background, 0, 0);
         trash.getSprite().draw(batch);
         plat.getSprite().draw(batch);
+        timeObject.draw(batch);
         character.draw(batch);
         scoreText.draw(batch);
-
 
         for (StoveObject stove : stoves) {
             stove.draw(batch);
@@ -143,7 +144,7 @@ public class StageOne implements Screen {
         }
 
         batch.end();
-        update(deltaTime);
+        update();
     }
 
     @Override
@@ -171,13 +172,14 @@ public class StageOne implements Screen {
         background.dispose();
         character.dispose();
 
+        timeObject.dispose();
         ramens.forEach(RamenObject::dispose);
         objects.forEach(BaseObject::dispose);
         trash.dispose();
     }
 
-    private void update(float deltaTime) {
-        limitTime -= deltaTime;
+    private void update() {
+        timeObject.update();
 
         if (character.getClickObject() instanceof RamenObject ramen && character.getItemStatus().equals(ItemStatus.STOVE) && plat.isClicked(camera)) {
             calculateScore(ramen);
@@ -236,23 +238,30 @@ public class StageOne implements Screen {
     private void calculateScore(RamenObject ramen) {
         long addScore = 0;
         long itemCount = ramen.getIsItem().entrySet().stream().filter(Map.Entry::getValue).count();
-        if (ramen.getCookTime() < 3 || itemCount == 2) {
-            addScore -= 60;
-            character.playAngry();
-        } else if (ramen.getCookTime() < 6 || itemCount == 3) {
-            addScore += 10;
-            character.playGood();
-        } else if (ramen.getCookTime() < 10 && itemCount > 5) {
-            addScore += 40;
-            character.playPerfect();
-        } else if (ramen.getCookTime() < 13 || itemCount <= 1) {
-            addScore -= 60;
-            character.playAngry();
-        } else if (ramen.getCookTime() >= 20) {
-            addScore -= 120;
-            character.playVeryAngry();
+
+        boolean isGosu = ramen.getIsItem().entrySet().stream().anyMatch(filter -> filter.getKey().equals(ItemStatus.GOSU));
+        if (isGosu && random.nextInt(100) == 0) {
+            addScore += character.playNoGosu();
+        } else if (random.nextInt(100) == 1) {
+            addScore += character.playNoRamen();
+        } else {
+            if (ramen.getCookTime() < 3 || itemCount == 2) {
+                addScore += character.playAngry();
+            } else if (ramen.getCookTime() < 6 || itemCount == 3) {
+                addScore += character.playGood();
+            } else if (ramen.getCookTime() < 10 && itemCount > 5) {
+                if (random.nextInt(100) <= 10) {
+                    addScore += character.playExcellent();
+                } else {
+                    addScore += character.playPerfect();
+                }
+            } else if (ramen.getCookTime() < 13 || itemCount <= 1) {
+                addScore += character.playAngry();
+            } else if (ramen.getCookTime() >= 20) {
+                addScore += character.playVeryAngry();
+            }
         }
-        addScore += itemCount * 20;
+        addScore += itemCount * 5;
         score += addScore;
         scoreText.setText(score.toString());
     }

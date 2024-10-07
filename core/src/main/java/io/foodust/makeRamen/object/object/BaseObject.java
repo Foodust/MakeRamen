@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import io.foodust.makeRamen.module.Modules;
 import io.foodust.makeRamen.object.ObjectManager;
 import io.foodust.makeRamen.object.object.stage.status.ItemStatus;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class BaseObject {
     protected Texture texture;
     protected Sprite sprite;
     protected Rectangle rectangle;
+    protected Modules modules = ObjectManager.getInstance().getModules();
     private ItemStatus itemStatus;
 
     public BaseObject(String textureName) {
@@ -70,7 +72,9 @@ public class BaseObject {
             texture.dispose();
         }
     }
+    public void update(){
 
+    }
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }

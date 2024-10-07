@@ -2,7 +2,10 @@ package io.foodust.makeRamen.object.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import io.foodust.makeRamen.module.Modules;
+import io.foodust.makeRamen.object.ObjectManager;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +16,7 @@ import lombok.Setter;
 public abstract class BaseCharacter {
     protected String name = "none";
 
+    protected Modules modules;
     protected Texture texture;
     protected Sprite sprite;
     protected Rectangle rectangle;
@@ -21,6 +25,7 @@ public abstract class BaseCharacter {
         this.texture = new Texture(textureName);
         this.sprite = new Sprite(texture);
         this.rectangle = new Rectangle(this.sprite.getX(), this.sprite.getY(), this.sprite.getWidth(), this.sprite.getHeight());
+        this.modules = ObjectManager.getInstance().getModules();
     }
 
     public BaseCharacter(String textureName, float x, float y) {
@@ -49,6 +54,10 @@ public abstract class BaseCharacter {
 
     public void updateBounds() {
         updateBounds(this.sprite.getX(), this.sprite.getY(), this.sprite.getWidth(), this.sprite.getHeight());
+    }
+
+    public void draw(SpriteBatch batch) {
+        sprite.draw(batch);
     }
 
     public void dispose() {
