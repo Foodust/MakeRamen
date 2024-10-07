@@ -8,7 +8,7 @@ public class TextureModule {
 
     }
 
-    public Texture makeTexture(String name){
-        return new Texture(name);
+    public Texture makeTexture(String name) {
+        return new Texture("sprite/" + name);
     }
 }

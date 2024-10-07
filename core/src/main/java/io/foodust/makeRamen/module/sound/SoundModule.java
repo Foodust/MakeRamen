@@ -18,7 +18,7 @@ public class SoundModule {
     }
 
     public Music makeMusic(String path, Boolean loop) {
-        Music music = Gdx.audio.newMusic(Gdx.files.internal(path));
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("sound/" +  path));
         music.setLooping(loop);
         return music;
     }
