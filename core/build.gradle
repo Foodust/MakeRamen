@@ -8,7 +8,7 @@ dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
   api "com.github.tommyettinger:libgdx-texturepacker:$texturePackerOnlyVersion"
   api "de.tomgrill.gdxdialogs:gdx-dialogs-core:$dialogsVersion"
-  api "org.apache.groovy:groovy-all:$groovyVersion"
+//  api "org.apache.groovy:groovy-all:$groovyVersion"
 
   compileOnly 'org.projectlombok:lombok:1.18.34'
   annotationProcessor 'org.projectlombok:lombok:1.18.34'

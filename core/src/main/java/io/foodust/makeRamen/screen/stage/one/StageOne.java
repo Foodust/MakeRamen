@@ -68,7 +68,7 @@ public class StageOne implements Screen {
         this.batch = makeRamen.getBatch();
         this.camera = makeRamen.getCamera();
         this.background = modules.getTextureModule().makeTexture("stage.png");
-        this.character = new MainCharacter("character2.png", 1600, 300);
+        this.character = new MainCharacter("character.png", 1600, 300);
 
         this.beef = new BeefObject("beef.png", 400f, 700f);
         this.noodle = new NoodleObject("noodle.png", 400f, 800f);
