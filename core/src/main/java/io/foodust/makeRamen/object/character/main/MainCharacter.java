@@ -17,6 +17,7 @@ import lombok.Setter;
 @Getter
 public class MainCharacter extends BaseCharacter {
 
+    private Texture normal;
     private Texture noGosu;
     private Texture noRamen;
     private Texture good;
@@ -42,6 +43,7 @@ public class MainCharacter extends BaseCharacter {
         this.headSprite.setPosition(x - 50, y + 100);
         this.headSprite.setScale(0.5f);
 
+        this.normal = modules.getTextureModule().makeTexture("normal.png");
 //        this.noGosu = modules.getTextureModule().makeTexture("noGosu.png");
 //        this.noRamen = modules.getTextureModule().makeTexture("noRamen.png");
 //        this.good = modules.getTextureModule().makeTexture("good.png");
@@ -80,48 +82,48 @@ public class MainCharacter extends BaseCharacter {
 
     public long playNoGosu() {
         characterStatus = CharacterStatus.NO_GOSU;
-        headSprite.setTexture(noGosu);
+//        headSprite.setTexture(noGosu);
         return -150;
     }
 
     public long playNoRamen() {
         characterStatus = CharacterStatus.NO_RAMEN;
-        headSprite.setTexture(noRamen);
+//        headSprite.setTexture(noRamen);
         return -200;
     }
 
     public void playNormal() {
         characterStatus = CharacterStatus.NORMAL;
-        headSprite.setTexture(getTexture());
+//        headSprite.setTexture(normal);
     }
 
     public long playGood() {
         characterStatus = CharacterStatus.GOOD;
-        headSprite.setTexture(good);
+//        headSprite.setTexture(good);
         return 50;
     }
 
     public long playPerfect() {
         characterStatus = CharacterStatus.PERFECT;
-        headSprite.setTexture(perfect);
+//        headSprite.setTexture(perfect);
         return 100;
     }
 
     public long playExcellent() {
         characterStatus = CharacterStatus.EXCELLENT;
-        headSprite.setTexture(excellent);
+//        headSprite.setTexture(excellent);
         return 100;
     }
 
     public long playAngry() {
         characterStatus = CharacterStatus.ANGRY;
-        headSprite.setTexture(angry);
+//        headSprite.setTexture(angry);
         return -60;
     }
 
     public long playVeryAngry() {
         characterStatus = CharacterStatus.VERY_ANGRY;
-        headSprite.setTexture(veryAngry);
+//        headSprite.setTexture(veryAngry);
         return -120;
     }
 

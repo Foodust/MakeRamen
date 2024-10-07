@@ -25,7 +25,7 @@ public class BaseObject {
     private ItemStatus itemStatus;
 
     public BaseObject(String textureName) {
-        this.texture = new Texture(textureName);
+        this.texture = modules.getTextureModule().makeTexture(textureName);
         this.sprite = new Sprite(texture);
         this.sprite.setOriginCenter();
     }
