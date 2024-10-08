@@ -157,7 +157,7 @@ public class RamenStage implements Screen {
             }
         }
         if (stopGame) {
-            batch.draw(white, ObjectManager.X / 2, ObjectManager.Y / 2);
+            batch.draw(white,0,0);
             restartButton.draw(batch);
             quitButton.draw(batch);
         }
