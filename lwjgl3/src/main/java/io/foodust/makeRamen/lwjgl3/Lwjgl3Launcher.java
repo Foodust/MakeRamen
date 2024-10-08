@@ -18,11 +18,11 @@ public class Lwjgl3Launcher {
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
-        configuration.setTitle("MakeRamen");
+        configuration.setTitle("우왁굳의 쌀국수 가게");
         configuration.useVsync(true);
         configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
         configuration.setWindowedMode(ObjectManager.X.intValue(), ObjectManager.Y.intValue());
-        configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
+        configuration.setWindowIcon("logo128.png", "logo64.png", "logo32.png", "logo16.png");
         return configuration;
     }
 }
