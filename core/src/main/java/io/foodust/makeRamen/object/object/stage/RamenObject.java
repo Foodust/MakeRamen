@@ -1,6 +1,7 @@
 package io.foodust.makeRamen.object.object.stage;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,6 +29,7 @@ public class RamenObject extends BaseObject {
     private final Sprite noodle;
     private final Sprite onion;
     private final Sprite water;
+    private final Music boilMusic;
 
     private final List<Texture> objets = new ArrayList<>();
 
@@ -58,6 +60,7 @@ public class RamenObject extends BaseObject {
         objets.add(waterTexture);
 
         updatePosition();
+        boilMusic = modules.getSoundModule().makeMusic("boiled.wav", true);
     }
 
 
@@ -106,5 +109,6 @@ public class RamenObject extends BaseObject {
         super.dispose();
         objets.forEach(Texture::dispose);
         isItem.clear();
+        boilMusic.dispose();
     }
 }

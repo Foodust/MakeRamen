@@ -15,6 +15,8 @@ public class ObjectManager {
     private static ObjectManager instance;
     public static Float X = 1920f;
     public static Float Y = 1080f;
+    public static Float musicVolume = 0.4f;
+    public static Float interactionVolume = 0.7f;
 
     public static ObjectManager getInstance() {
         if (instance == null) {

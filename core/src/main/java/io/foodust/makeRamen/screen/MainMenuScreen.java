@@ -11,7 +11,7 @@ import io.foodust.makeRamen.object.ObjectManager;
 import io.foodust.makeRamen.object.object.BaseObject;
 import io.foodust.makeRamen.object.object.menu.EnterButton;
 import io.foodust.makeRamen.object.object.menu.QuitButton;
-import io.foodust.makeRamen.screen.stage.one.StageOne;
+import io.foodust.makeRamen.screen.stage.one.RamenStage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,8 +96,8 @@ public class MainMenuScreen implements Screen {
     private void update(float deltaTime) {
         if (enterObject.isClicked(makeRamen.getCamera())) {
             dispose();
-            StageOne stageOne = new StageOne(makeRamen);
-            makeRamen.setScreen(stageOne);
+            RamenStage ramenStage = new RamenStage(makeRamen);
+            makeRamen.setScreen(ramenStage);
         } else if (quitObject.isClicked(makeRamen.getCamera())) {
             Gdx.app.exit();
         }

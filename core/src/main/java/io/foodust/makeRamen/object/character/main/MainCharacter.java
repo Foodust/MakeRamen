@@ -9,7 +9,6 @@ import io.foodust.makeRamen.object.character.BaseCharacter;
 import io.foodust.makeRamen.object.object.BaseObject;
 import io.foodust.makeRamen.object.object.stage.TimeObject;
 import io.foodust.makeRamen.object.object.stage.status.ItemStatus;
-import io.foodust.makeRamen.screen.stage.one.StageOne;
 import lombok.Getter;
 import lombok.Setter;
 

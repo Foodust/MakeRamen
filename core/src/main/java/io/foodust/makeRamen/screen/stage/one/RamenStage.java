@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -28,8 +29,8 @@ import java.util.Map;
 import java.util.Random;
 
 @Getter
-public class StageOne implements Screen {
-
+public class RamenStage implements Screen {
+    private final MakeRamen makeRamen;
     private final Modules modules = ObjectManager.getInstance().getModules();
 
     private final SpriteBatch batch;
@@ -64,14 +65,16 @@ public class StageOne implements Screen {
 
     private Long score = 0L;
 
-    private RestartButton restartButton;
-    private QuitButton quitButton;
+    private final RestartButton restartButton;
+    private final QuitButton quitButton;
+    private final Texture white;
     private Boolean stopGame = false;
 
 
     private final Random random = new Random();
 
-    public StageOne(MakeRamen makeRamen) {
+    public RamenStage(MakeRamen makeRamen) {
+        this.makeRamen = makeRamen;
         this.batch = makeRamen.getBatch();
         this.camera = makeRamen.getCamera();
         this.background = modules.getTextureModule().makeTexture("stage.png");
@@ -98,6 +101,7 @@ public class StageOne implements Screen {
 
         this.restartButton = new RestartButton("enter.png", ObjectManager.X / 2, ObjectManager.Y / 2 + 200);
         this.quitButton = new QuitButton("quit.png", ObjectManager.X / 2, ObjectManager.Y / 2);
+        this.white = modules.getTextureModule().makeTexture("white.png");
 
         stoves.add(stoveOne);
         stoves.add(stoveTwo);
@@ -153,6 +157,7 @@ public class StageOne implements Screen {
             }
         }
         if (stopGame) {
+            batch.draw(white, ObjectManager.X / 2, ObjectManager.Y / 2);
             restartButton.draw(batch);
             quitButton.draw(batch);
         }
@@ -190,6 +195,7 @@ public class StageOne implements Screen {
         ramens.forEach(RamenObject::dispose);
         objects.forEach(BaseObject::dispose);
         trash.dispose();
+        white.dispose();
         quitButton.dispose();
         restartButton.dispose();
     }
@@ -199,6 +205,12 @@ public class StageOne implements Screen {
             stopGame = false;
         } else if (!stopGame && modules.getInputModule().getKeyBoardTouch(Input.Keys.ESCAPE)) {
             stopGame = true;
+            if (restartButton.isClicked(camera)) {
+                makeRamen.setScreen(new RamenStage(makeRamen));
+            }
+            if (quitButton.isClicked(camera)) {
+                Gdx.app.exit();
+            }
         }
         if (stopGame) {
             return;
