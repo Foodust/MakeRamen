@@ -1,6 +1,7 @@
 package io.foodust.makeRamen.module.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
@@ -25,7 +26,7 @@ public class InputModule {
             boolean contains = rectangle.contains(touchPoint.x, touchPoint.y);
             if (!contains) return false;
             SoundModule soundModule = ObjectManager.getInstance().getModules().getSoundModule();
-            Sound sound = soundModule.makeSound("click.wav");
+            Music sound = soundModule.makeSound("click.wav",0.5f);
             sound.play();
             return true;
         }

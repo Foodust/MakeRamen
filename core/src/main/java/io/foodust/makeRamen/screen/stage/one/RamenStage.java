@@ -157,7 +157,7 @@ public class RamenStage implements Screen {
             }
         }
         if (stopGame) {
-            batch.draw(white,0,0);
+            batch.draw(white, 0, 0);
             restartButton.draw(batch);
             quitButton.draw(batch);
         }
@@ -284,34 +284,36 @@ public class RamenStage implements Screen {
     }
 
     private void calculateScore(RamenObject ramen) {
-        long addScore = 0;
         long itemCount = ramen.getIsItem().entrySet().stream().filter(Map.Entry::getValue).count();
-
         boolean isGosu = ramen.getIsItem().entrySet().stream().anyMatch(filter -> filter.getKey().equals(ItemStatus.GOSU));
-        if (isGosu && random.nextInt(100) == 0) {
-            addScore += character.playNoGosu();
-        } else if (random.nextInt(100) == 1) {
-            addScore += character.playNoRamen();
-        } else {
-            if (ramen.getCookTime() < 3 || itemCount == 2) {
-                addScore += character.playAngry();
-            } else if (ramen.getCookTime() < 6 || itemCount == 3) {
-                addScore += character.playGood();
-            } else if (ramen.getCookTime() < 10 && itemCount > 5) {
-                if (random.nextInt(100) <= 10) {
-                    addScore += character.playExcellent();
-                } else {
-                    addScore += character.playPerfect();
-                }
-            } else if (ramen.getCookTime() < 13 || itemCount <= 1) {
-                addScore += character.playAngry();
-            } else if (ramen.getCookTime() >= 20) {
-                addScore += character.playVeryAngry();
-            }
-        }
-        addScore += itemCount * 5;
-        score += addScore;
+        score += getScore(isGosu,ramen,itemCount);
         scoreText.setText(score.toString());
+    }
+    private long getScore(Boolean isGosu, RamenObject ramen, long itemCount){
+        // 특별한 경우 처리
+        if (isGosu && random.nextInt(100) == 0) {
+            return character.playNoGosu();
+        }
+        if (random.nextInt(100) == 1) {
+            return character.playNoRamen();
+        }
+        // 일반적인 경우 처리
+        float cookTime = ramen.getCookTime();
+
+        if (cookTime >= 20) {
+            return character.playVeryAngry();
+        }
+        if (cookTime < 3 || itemCount == 2) {
+            return character.playAngry();
+        }
+        if (cookTime < 6 || itemCount == 3) {
+            return character.playGood();
+        }
+        if (cookTime < 10 && itemCount > 5) {
+            return (random.nextInt(100) <= 10) ? character.playExcellent() : character.playPerfect();
+        }
+        // 기본 케이스
+        return character.playAngry();
     }
 
     private void resetHand() {

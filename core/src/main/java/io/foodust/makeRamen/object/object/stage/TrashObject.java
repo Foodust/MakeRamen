@@ -1,6 +1,5 @@
 package io.foodust.makeRamen.object.object.stage;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.foodust.makeRamen.object.object.BaseObject;
 
@@ -14,8 +13,7 @@ public class TrashObject extends BaseObject {
         Boolean clicked = super.isClicked(camera);
         if (!clicked) return false;
 
-        Sound sound = modules.getSoundModule().makeSound("trash.wav");
-        sound.play();
+        modules.getSoundModule().makeSound("trash.wav");
         return true;
     }
 }

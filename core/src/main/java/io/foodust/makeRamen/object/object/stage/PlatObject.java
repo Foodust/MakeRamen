@@ -13,8 +13,7 @@ public class PlatObject extends BaseObject {
     public Boolean isClicked(OrthographicCamera camera) {
         Boolean isClicked = super.isClicked(camera);
         if (!isClicked) return false;
-        Sound sound = modules.getSoundModule().makeSound("enter.wav");
-        sound.play();
+        modules.getSoundModule().makeSound("enter.wav");
         return true;
     }
 }

@@ -60,7 +60,8 @@ public class RamenObject extends BaseObject {
         objets.add(waterTexture);
 
         updatePosition();
-        boilMusic = modules.getSoundModule().makeMusic("boiled.wav", true);
+        boilMusic = modules.getSoundModule().makeSound("boiled.wav",0.3f, true);
+        boilMusic.play();
     }
 
 

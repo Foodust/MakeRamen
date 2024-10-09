@@ -1,6 +1,8 @@
 package io.foodust.makeRamen.object.character.main;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -35,6 +37,7 @@ public class MainCharacter extends BaseCharacter {
     private Float rotationTime = 0f;
     private final Float maxRotation = 20f;
     private Float rotationSpeed = 2f;
+    private Float characterSound = 0.9f;
 
     public MainCharacter(String textureName, float x, float y) {
         super(textureName, x, y);
@@ -69,7 +72,8 @@ public class MainCharacter extends BaseCharacter {
         nowStatusTime += deltaTime;
         rotationTime += deltaTime;
         if (nowStatusTime >= 3f) {
-            playNormal();
+            characterStatus = CharacterStatus.NORMAL;
+            //headSprite.setTexture(normal);
             nowStatusTime = 0f;
         }
         headSprite.setOrigin(sprite.getWidth() / 2, 0);
@@ -80,47 +84,55 @@ public class MainCharacter extends BaseCharacter {
 
     public long playNoGosu() {
         characterStatus = CharacterStatus.NO_GOSU;
+        modules.getSoundModule().makeSound("noGosu.wav", characterSound);
 //        headSprite.setTexture(noGosu);
         return -150;
     }
 
     public long playNoRamen() {
         characterStatus = CharacterStatus.NO_RAMEN;
+        modules.getSoundModule().makeSound("noRamen.wav", characterSound);
 //        headSprite.setTexture(noRamen);
         return -200;
     }
 
     public void playNormal() {
         characterStatus = CharacterStatus.NORMAL;
+        modules.getSoundModule().makeSound("normal.wav", characterSound);
 //        headSprite.setTexture(normal);
     }
 
     public long playGood() {
         characterStatus = CharacterStatus.GOOD;
+        modules.getSoundModule().makeSound("good.wav", characterSound);
 //        headSprite.setTexture(good);
         return 50;
     }
 
     public long playPerfect() {
         characterStatus = CharacterStatus.PERFECT;
+        modules.getSoundModule().makeSound("great.wav", characterSound);
 //        headSprite.setTexture(perfect);
         return 100;
     }
 
     public long playExcellent() {
         characterStatus = CharacterStatus.EXCELLENT;
+        modules.getSoundModule().makeSound("excellent.wav", characterSound);
 //        headSprite.setTexture(excellent);
         return 100;
     }
 
     public long playAngry() {
         characterStatus = CharacterStatus.ANGRY;
+        modules.getSoundModule().makeSound("angry.wav", characterSound);
 //        headSprite.setTexture(angry);
         return -60;
     }
 
     public long playVeryAngry() {
         characterStatus = CharacterStatus.VERY_ANGRY;
+        modules.getSoundModule().makeSound("veryAngry.wav", characterSound);
 //        headSprite.setTexture(veryAngry);
         return -120;
     }
