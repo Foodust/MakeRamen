@@ -69,6 +69,7 @@ public class RamenStage implements Screen {
     private Boolean stopGame = false;
 
     private Float gameTime = 300f;
+    private Float delayTime = 3f;
 
     private final Random random = new Random();
 
@@ -114,7 +115,7 @@ public class RamenStage implements Screen {
         objects.add(water);
         objects.add(onion);
 
-        scoreText = modules.getFontManager().generateFont(3);
+        scoreText = modules.getFontManager().generateFont(50);
     }
 
     @Override
@@ -205,7 +206,7 @@ public class RamenStage implements Screen {
 
     private void update() {
         if (updateEscape()) return;
-        updateTime();
+        if (updateTime()) return;
         timeObject.update();
 
         if (character.getClickObject() instanceof RamenObject ramen && character.getItemStatus().equals(ItemStatus.STOVE) && plat.isClicked(camera)) {
@@ -224,11 +225,14 @@ public class RamenStage implements Screen {
         updateObject();
     }
 
-    private void updateTime() {
+    private Boolean updateTime() {
         gameTime -= Gdx.graphics.getDeltaTime();
-        if (gameTime > 0) return;
-
-        makeRamen.setScreen(new EndScene(makeRamen, score));
+        if (gameTime > 0) return false;
+        delayTime -= Gdx.graphics.getDeltaTime();
+        if (delayTime < 0) {
+            makeRamen.setScreen(new EndScene(makeRamen, score));
+        }
+        return true;
     }
 
     private Boolean updateEscape() {

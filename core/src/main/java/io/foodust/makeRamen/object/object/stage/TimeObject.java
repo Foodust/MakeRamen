@@ -31,7 +31,6 @@ public class TimeObject extends BaseObject {
     public void update() {
         nowLimitTime -= Gdx.graphics.getDeltaTime();
         if (nowLimitTime <= 0) {
-
             return;
         }
         float progress = nowLimitTime / maxLimitTime;

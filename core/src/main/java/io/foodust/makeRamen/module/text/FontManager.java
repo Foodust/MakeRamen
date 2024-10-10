@@ -14,10 +14,13 @@ public class FontManager {
     }
 
     public BitmapFont generateFont(int size) {
+        return generateFont(size, Color.WHITE);
+    }
+
+    public BitmapFont generateFont(int size, Color color) {
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
-        // 추가 옵션 설정
-        parameter.color = Color.WHITE;
+        parameter.color = color;
         return generator.generateFont(parameter);
     }
 

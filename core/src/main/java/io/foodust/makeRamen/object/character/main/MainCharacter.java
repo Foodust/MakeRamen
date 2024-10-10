@@ -120,7 +120,7 @@ public class MainCharacter extends BaseCharacter {
         characterStatus = CharacterStatus.EXCELLENT;
         modules.getSoundModule().makeSound("excellent.wav", characterSound);
 //        headSprite.setTexture(excellent);
-        return 100;
+        return 200;
     }
 
     public long playAngry() {
