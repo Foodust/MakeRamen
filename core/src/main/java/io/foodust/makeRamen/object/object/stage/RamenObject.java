@@ -34,6 +34,7 @@ public class RamenObject extends BaseObject {
     private final List<Texture> objets = new ArrayList<>();
 
     private Float cookTime = 0f;
+    private Float maxCookTime = 13f;
 
     public RamenObject(String textureName, float x, float y) {
         super(textureName, x, y);
@@ -60,7 +61,7 @@ public class RamenObject extends BaseObject {
         objets.add(waterTexture);
 
         updatePosition();
-        boilMusic = modules.getSoundModule().makeSound("boiled.wav",0.3f, true);
+        boilMusic = modules.getSoundModule().makeSound("boiled.wav", 0.3f, true);
         boilMusic.play();
     }
 
@@ -101,8 +102,12 @@ public class RamenObject extends BaseObject {
     }
 
     private void updatePotColor() {
-        float alpha = Math.min(cookTime / 20, 1f); // 알파값으로 사용
-        pot.setColor(1 - alpha, 1 - alpha, 1 - alpha, 1);
+        if (cookTime > maxCookTime) {
+            pot.setColor(0, 0, 0, 1);
+        } else {
+            float alpha = Math.min(cookTime / 20, 1f); // 알파값으로 사용
+            pot.setColor(1 - alpha, 1 - alpha, 1 - alpha, 1);
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-package io.foodust.makeRamen.screen.stage.one;
+package io.foodust.makeRamen.screen.stage;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,13 +6,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.foodust.makeRamen.game.MakeRamen;
 import io.foodust.makeRamen.module.Modules;
-import io.foodust.makeRamen.module.text.ScoreText;
 import io.foodust.makeRamen.object.ObjectManager;
 import io.foodust.makeRamen.object.character.main.MainCharacter;
 import io.foodust.makeRamen.object.object.BaseObject;
@@ -40,7 +38,7 @@ public class RamenStage implements Screen {
 
     private final MainCharacter character;
 
-    private final ScoreText scoreText;
+    private final BitmapFont scoreText;
 
     private final List<BaseObject> objects = new ArrayList<>();
     private final List<StoveObject> stoves = new ArrayList<>();
@@ -70,6 +68,7 @@ public class RamenStage implements Screen {
     private final Texture white;
     private Boolean stopGame = false;
 
+    private Float gameTime = 300f;
 
     private final Random random = new Random();
 
@@ -115,7 +114,7 @@ public class RamenStage implements Screen {
         objects.add(water);
         objects.add(onion);
 
-        scoreText = new ScoreText(new BitmapFont(), score.toString(), 1450, 750, camera);
+        scoreText = modules.getFontManager().generateFont(3);
     }
 
     @Override
@@ -125,6 +124,7 @@ public class RamenStage implements Screen {
 
     @Override
     public void render(float deltaTime) {
+
         ScreenUtils.clear(0, 0, 0, 1);
         batch.begin();
 
@@ -133,7 +133,7 @@ public class RamenStage implements Screen {
         plat.getSprite().draw(batch);
         timeObject.draw(batch);
         character.draw(batch);
-        scoreText.draw(batch);
+        scoreText.draw(batch, score.toString(), 1400f, 700f);
 
         for (StoveObject stove : stoves) {
             stove.draw(batch);
@@ -191,9 +191,12 @@ public class RamenStage implements Screen {
         background.dispose();
         character.dispose();
 
-        timeObject.dispose();
         ramens.forEach(RamenObject::dispose);
         objects.forEach(BaseObject::dispose);
+
+        scoreText.dispose();
+        timeObject.dispose();
+
         trash.dispose();
         white.dispose();
         quitButton.dispose();
@@ -201,21 +204,8 @@ public class RamenStage implements Screen {
     }
 
     private void update() {
-        if (stopGame && modules.getInputModule().getKeyBoardTouch(Input.Keys.ESCAPE)) {
-            stopGame = false;
-        } else if (!stopGame && modules.getInputModule().getKeyBoardTouch(Input.Keys.ESCAPE)) {
-            stopGame = true;
-            if (restartButton.isClicked(camera)) {
-                makeRamen.setScreen(new RamenStage(makeRamen));
-            }
-            if (quitButton.isClicked(camera)) {
-                Gdx.app.exit();
-            }
-        }
-        if (stopGame) {
-            return;
-        }
-
+        if (updateEscape()) return;
+        updateTime();
         timeObject.update();
 
         if (character.getClickObject() instanceof RamenObject ramen && character.getItemStatus().equals(ItemStatus.STOVE) && plat.isClicked(camera)) {
@@ -234,7 +224,31 @@ public class RamenStage implements Screen {
         updateObject();
     }
 
-    public void updateRamen() {
+    private void updateTime() {
+        gameTime -= Gdx.graphics.getDeltaTime();
+        if (gameTime > 0) return;
+
+        makeRamen.setScreen(new EndScene(makeRamen, score));
+    }
+
+    private Boolean updateEscape() {
+        if (stopGame && modules.getInputModule().getKeyBoardTouch(Input.Keys.ESCAPE)) {
+            stopGame = false;
+        } else if (!stopGame && modules.getInputModule().getKeyBoardTouch(Input.Keys.ESCAPE)) {
+            stopGame = true;
+        }
+        if (!stopGame) return false;
+
+        if (restartButton.isClicked(camera)) {
+            makeRamen.setScreen(new RamenStage(makeRamen));
+        }
+        if (quitButton.isClicked(camera)) {
+            Gdx.app.exit();
+        }
+        return true;
+    }
+
+    private void updateRamen() {
         for (RamenObject ramen : ramens) {
             if (!ramen.isClicked(camera)) continue;
             if (character.getClickObject() == null && character.getItemStatus().equals(ItemStatus.NONE)) {
@@ -254,7 +268,7 @@ public class RamenStage implements Screen {
         }
     }
 
-    public void updateStove() {
+    private void updateStove() {
         for (StoveObject stove : stoves) {
             float stoveCenterX = stove.getSprite().getX() + stove.getSprite().getWidth() / 2;
             float stoveCenterY = stove.getSprite().getY() + stove.getSprite().getHeight() / 2;
@@ -272,7 +286,7 @@ public class RamenStage implements Screen {
         }
     }
 
-    public void updateObject() {
+    private void updateObject() {
         for (BaseObject object : objects) {
             if (object.isClicked(camera) && character.getClickObject() == null) {
                 character.setClickObject(object);
@@ -286,10 +300,10 @@ public class RamenStage implements Screen {
     private void calculateScore(RamenObject ramen) {
         long itemCount = ramen.getIsItem().entrySet().stream().filter(Map.Entry::getValue).count();
         boolean isGosu = ramen.getIsItem().entrySet().stream().anyMatch(filter -> filter.getKey().equals(ItemStatus.GOSU));
-        score += getScore(isGosu,ramen,itemCount);
-        scoreText.setText(score.toString());
+        score += getScore(isGosu, ramen, itemCount);
     }
-    private long getScore(Boolean isGosu, RamenObject ramen, long itemCount){
+
+    private long getScore(Boolean isGosu, RamenObject ramen, long itemCount) {
         // 특별한 경우 처리
         if (isGosu && random.nextInt(100) == 0) {
             return character.playNoGosu();
@@ -300,16 +314,16 @@ public class RamenStage implements Screen {
         // 일반적인 경우 처리
         float cookTime = ramen.getCookTime();
 
-        if (cookTime >= 20) {
+        if (cookTime >= ramen.getMaxCookTime() || itemCount <= 2) {
             return character.playVeryAngry();
         }
-        if (cookTime < 3 || itemCount == 2) {
+        if (cookTime < 4 || itemCount <= 3) {
             return character.playAngry();
         }
-        if (cookTime < 6 || itemCount == 3) {
+        if (cookTime < 8 || itemCount <= 4) {
             return character.playGood();
         }
-        if (cookTime < 10 && itemCount > 5) {
+        if (cookTime < 10) {
             return (random.nextInt(100) <= 10) ? character.playExcellent() : character.playPerfect();
         }
         // 기본 케이스

@@ -5,6 +5,7 @@ import io.foodust.makeRamen.module.image.TextureModule;
 import io.foodust.makeRamen.module.input.InputModule;
 import io.foodust.makeRamen.module.object.ObjectModule;
 import io.foodust.makeRamen.module.sound.SoundModule;
+import io.foodust.makeRamen.module.text.FontManager;
 import lombok.Getter;
 
 @Getter
@@ -15,6 +16,7 @@ public class Modules {
     private final TextureModule textureModule;
     private final SoundModule soundModule;
     private final ObjectModule objectModule;
+    private final FontManager fontManager;
 
     public Modules() {
         this.spriteModule = new SpriteModule();
@@ -22,5 +24,6 @@ public class Modules {
         this.textureModule = new TextureModule();
         this.soundModule = new SoundModule();
         this.objectModule = new ObjectModule();
+        this.fontManager = new FontManager();
     }
 }

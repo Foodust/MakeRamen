@@ -11,7 +11,7 @@ import io.foodust.makeRamen.object.ObjectManager;
 import io.foodust.makeRamen.object.object.BaseObject;
 import io.foodust.makeRamen.object.object.menu.EnterButton;
 import io.foodust.makeRamen.object.object.menu.QuitButton;
-import io.foodust.makeRamen.screen.stage.one.RamenStage;
+import io.foodust.makeRamen.screen.stage.RamenStage;
 
 import java.util.ArrayList;
 import java.util.List;
