@@ -68,7 +68,6 @@ public class RamenStage implements Screen {
     private final Texture white;
     private Boolean stopGame = false;
 
-    private Float gameTime = 300f;
     private Float delayTime = 3f;
 
     private final Random random = new Random();
@@ -226,8 +225,11 @@ public class RamenStage implements Screen {
     }
 
     private Boolean updateTime() {
-        gameTime -= Gdx.graphics.getDeltaTime();
-        if (gameTime > 0) return false;
+        if (TimeObject.nowLimitTime > 0) return false;
+
+        if (delayTime == 3f) {
+            modules.getSoundModule().makeSound("enter.wav", 0.9f);
+        }
         delayTime -= Gdx.graphics.getDeltaTime();
         if (delayTime < 0) {
             makeRamen.setScreen(new EndScene(makeRamen, score));
