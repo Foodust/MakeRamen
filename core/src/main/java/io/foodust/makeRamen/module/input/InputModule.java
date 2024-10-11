@@ -6,10 +6,11 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import io.foodust.makeRamen.module.BaseModule;
 import io.foodust.makeRamen.module.sound.SoundModule;
 import io.foodust.makeRamen.object.ObjectManager;
 
-public class InputModule {
+public class InputModule extends BaseModule {
 
     public InputModule() {
     }
@@ -31,5 +32,10 @@ public class InputModule {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }

@@ -5,8 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.foodust.makeRamen.game.MakeRamen;
@@ -43,18 +45,8 @@ public class RamenStage implements Screen {
     private final List<BaseObject> objects = new ArrayList<>();
     private final List<StoveObject> stoves = new ArrayList<>();
     private final List<RamenObject> ramens = new ArrayList<>();
-    private final BeefObject beef;
-    private final GosuObject gosu;
-    private final NoodleObject noodle;
-    private final PlatObject plat;
-    private final PotObject pot;
-    private final WaterObject water;
-    private final OnionObject onion;
 
-    private final StoveObject stoveOne;
-    private final StoveObject stoveTwo;
-    private final StoveObject stoveThree;
-    private final StoveObject stoveFour;
+    private final PlatObject plat;
 
     private final TrashObject trash;
     private final TimeObject timeObject;
@@ -79,21 +71,7 @@ public class RamenStage implements Screen {
         this.background = modules.getTextureModule().makeTexture("stage.png");
         this.character = new MainCharacter("character.png", 1600, 300);
 
-        this.onion = new OnionObject("onion.png", 400f, 900f);
-        this.noodle = new NoodleObject("noodle.png", 560f, 900f);
-        this.gosu = new GosuObject("gosu.png", 400f, 730f);
-        this.beef = new BeefObject("beef.png", 560f, 730f);
-
-        this.water = new WaterObject("water.png", 850f, 520f);
-        this.pot = new PotObject("pot.png", 850f, 320f);
-
         this.plat = new PlatObject("plate.png", 1120f, 400f);
-
-        this.stoveOne = new StoveObject("stove.png", 290f, 470f);
-        this.stoveTwo = new StoveObject("stove.png", 560f, 470f);
-        this.stoveThree = new StoveObject("stove.png", 320f, 330f);
-        this.stoveFour = new StoveObject("stove.png", 590f, 330f);
-
         this.trash = new TrashObject("trash.png", 70f, 180f);
 
         this.timeObject = new TimeObject("time.png", ObjectManager.X / 2, ObjectManager.Y - 200);
@@ -102,17 +80,17 @@ public class RamenStage implements Screen {
         this.quitButton = new QuitButton("quit.png", ObjectManager.X / 2, ObjectManager.Y / 2);
         this.white = modules.getTextureModule().makeTexture("white.png");
 
-        stoves.add(stoveOne);
-        stoves.add(stoveTwo);
-        stoves.add(stoveThree);
-        stoves.add(stoveFour);
+        stoves.add(new StoveObject("stove.png", 290f, 470f));
+        stoves.add(new StoveObject("stove.png", 560f, 470f));
+        stoves.add(new StoveObject("stove.png", 320f, 330f));
+        stoves.add(new StoveObject("stove.png", 590f, 330f));
 
-        objects.add(beef);
-        objects.add(gosu);
-        objects.add(noodle);
-        objects.add(pot);
-        objects.add(water);
-        objects.add(onion);
+        objects.add(new BeefObject("beef.png", 560f, 730f));
+        objects.add(new GosuObject("gosu.png", 400f, 730f));
+        objects.add(new NoodleObject("noodle.png", 560f, 900f));
+        objects.add(new PotObject("pot.png", 850f, 320f));
+        objects.add(new WaterObject("water.png", 850f, 520f));
+        objects.add(new OnionObject("onion.png", 400f, 900f));
 
         scoreText = modules.getFontManager().generateFont(50);
     }

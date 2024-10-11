@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.foodust.makeRamen.object.ObjectManager;
 import io.foodust.makeRamen.screen.MainMenuScreen;
 import lombok.Getter;
 
@@ -25,5 +26,11 @@ public class MakeRamen extends Game {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         setScreen(new MainMenuScreen(this));
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        ObjectManager.getInstance().release();
     }
 }

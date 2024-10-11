@@ -23,4 +23,11 @@ public class ObjectManager {
         }
         return instance;
     }
+    public void release(){
+        modules.getSoundModule().dispose();
+        modules.getTextureModule().dispose();
+        modules.getSpriteModule().dispose();
+        modules.getAnimationModule().dispose();
+        modules.getFontManager().dispose();
+    }
 }

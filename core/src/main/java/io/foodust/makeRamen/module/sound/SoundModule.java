@@ -2,9 +2,11 @@ package io.foodust.makeRamen.module.sound;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import io.foodust.makeRamen.module.BaseModule;
 import io.foodust.makeRamen.object.ObjectManager;
 
-public class SoundModule {
+public class SoundModule extends BaseModule {
+
 
     public SoundModule() {
     }
@@ -28,5 +30,10 @@ public class SoundModule {
         audio.setLooping(loop);
         audio.play();
         return audio;
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }
