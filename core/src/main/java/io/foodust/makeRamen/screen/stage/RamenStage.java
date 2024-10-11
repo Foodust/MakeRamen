@@ -79,22 +79,22 @@ public class RamenStage implements Screen {
         this.background = modules.getTextureModule().makeTexture("stage.png");
         this.character = new MainCharacter("character.png", 1600, 300);
 
-        this.beef = new BeefObject("beef.png", 400f, 700f);
-        this.noodle = new NoodleObject("noodle.png", 400f, 800f);
-        this.gosu = new GosuObject("gosu.png", 250f, 700f);
-        this.onion = new OnionObject("onion.png", 250f, 800f);
+        this.onion = new OnionObject("onion.png", 400f, 900f);
+        this.noodle = new NoodleObject("noodle.png", 560f, 900f);
+        this.gosu = new GosuObject("gosu.png", 400f, 730f);
+        this.beef = new BeefObject("beef.png", 560f, 730f);
 
-        this.pot = new PotObject("pot.png", 800f, 500f);
-        this.water = new WaterObject("water.png", 800f, 600f);
+        this.water = new WaterObject("water.png", 850f, 520f);
+        this.pot = new PotObject("pot.png", 850f, 320f);
 
-        this.plat = new PlatObject("plate.png", 1000f, 500f);
+        this.plat = new PlatObject("plate.png", 1120f, 400f);
 
-        this.stoveOne = new StoveObject("stove.png", 400f, 300f);
-        this.stoveTwo = new StoveObject("stove.png", 400f, 400f);
-        this.stoveThree = new StoveObject("stove.png", 500f, 300f);
-        this.stoveFour = new StoveObject("stove.png", 500f, 400f);
+        this.stoveOne = new StoveObject("stove.png", 290f, 470f);
+        this.stoveTwo = new StoveObject("stove.png", 560f, 470f);
+        this.stoveThree = new StoveObject("stove.png", 320f, 330f);
+        this.stoveFour = new StoveObject("stove.png", 590f, 330f);
 
-        this.trash = new TrashObject("trash.png", 150f, 100);
+        this.trash = new TrashObject("trash.png", 70f, 180f);
 
         this.timeObject = new TimeObject("time.png", ObjectManager.X / 2, ObjectManager.Y - 200);
 
