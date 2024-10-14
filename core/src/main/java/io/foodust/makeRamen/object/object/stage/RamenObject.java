@@ -103,6 +103,9 @@ public class RamenObject extends BaseObject {
 
     private void updatePotColor() {
         if (cookTime > maxCookTime) {
+            if(pot.getColor().r != 0){
+                modules.getSoundModule().makeSound("burn.wav", 0.5f);
+            }
             pot.setColor(0, 0, 0, 1);
         } else {
             float alpha = Math.min(cookTime / 20, 1f); // 알파값으로 사용
