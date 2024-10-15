@@ -312,7 +312,6 @@ public class RamenStage implements Screen {
         }
         return character.playAngry();
     }
-
     private void resetHand() {
         character.setClickObject(null);
         character.setItemStatus(ItemStatus.NONE);
