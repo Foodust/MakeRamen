@@ -307,7 +307,7 @@ public class RamenStage implements Screen {
         if (cookTime < 8 || itemCount <= 4) {
             return character.playGood();
         }
-        if (cookTime < 10) {
+        if (cookTime < 11) {
             return (random.nextInt(100) <= 10) ? character.playExcellent() : character.playPerfect();
         }
         return character.playAngry();
