@@ -12,16 +12,13 @@ import io.foodust.makeRamen.object.object.stage.status.ItemStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
 public class RamenObject extends BaseObject {
     private final Modules modules = ObjectManager.getInstance().getModules();
-    private final HashMap<ItemStatus, Boolean> isItem = new HashMap<>();
+    private final LinkedHashMap<ItemStatus, Boolean> isItem = new LinkedHashMap<>();
 
     private final Sprite pot;
     private final Sprite beef;
@@ -86,7 +83,6 @@ public class RamenObject extends BaseObject {
     public void draw(SpriteBatch batch) {
         cookTime += Gdx.graphics.getDeltaTime();
         updatePotColor();
-
         isItem.forEach((key, value) -> {
             if (value) {
                 switch (key) {
