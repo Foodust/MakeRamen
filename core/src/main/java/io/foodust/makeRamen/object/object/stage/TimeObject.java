@@ -32,7 +32,6 @@ public class TimeObject extends BaseObject {
     @Override
     public void update() {
         nowLimitTime -= Gdx.graphics.getDeltaTime();
-        System.out.println(nowLimitTime);
         if (nowLimitTime <= 0) {
             music.stop();
             modules.getSoundModule().makeSound("end.wav",1f);

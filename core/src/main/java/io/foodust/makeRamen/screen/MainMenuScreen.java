@@ -2,6 +2,7 @@ package io.foodust.makeRamen.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,6 +31,7 @@ public class MainMenuScreen implements Screen {
     private final SpriteBatch spriteBatch;
     private final Texture background;
     private final List<BaseObject> objects = new ArrayList<>();
+    private final Music music;
 
     public MainMenuScreen(MakeRamen makeRamen) {
         this.makeRamen = makeRamen;
@@ -39,6 +41,7 @@ public class MainMenuScreen implements Screen {
         this.quitObject = new QuitButton("quit.png", ObjectManager.X / 2, ObjectManager.Y / 2 - 360);
         objects.add(enterObject);
         objects.add(quitObject);
+        music = modules.getSoundModule().makeSound("lobby.wav", 0.7f,true);
     }
 
     @Override
@@ -85,6 +88,7 @@ public class MainMenuScreen implements Screen {
         background.dispose();
         objects.forEach(BaseObject::dispose);
         objects.clear();
+        music.dispose();
     }
 
     public void draw(float deltaTime) {

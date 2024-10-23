@@ -3,6 +3,7 @@ package io.foodust.makeRamen.screen.stage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -64,6 +65,8 @@ public class RamenStage implements Screen {
 
     private final Random random = new Random();
 
+    private final Music music;
+
     public RamenStage(MakeRamen makeRamen) {
         this.makeRamen = makeRamen;
         this.batch = makeRamen.getBatch();
@@ -93,6 +96,8 @@ public class RamenStage implements Screen {
         objects.add(new OnionObject("onion.png", 400f, 900f));
 
         scoreText = modules.getFontManager().generateFont(50);
+
+        music = modules.getSoundModule().makeSound("game.wav",0.7f,true);
     }
 
     @Override
@@ -206,6 +211,7 @@ public class RamenStage implements Screen {
         if (TimeObject.nowLimitTime > 0) return false;
 
         if (delayTime == 3f) {
+            music.stop();
             modules.getSoundModule().makeSound("enter.wav", 0.9f);
         }
         delayTime -= Gdx.graphics.getDeltaTime();
