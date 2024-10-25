@@ -83,17 +83,18 @@ public class RamenStage implements Screen {
         this.quitButton = new QuitButton("quit.png", ObjectManager.X / 2, ObjectManager.Y / 2);
         this.white = modules.getTextureModule().makeTexture("white.png");
 
-        stoves.add(new StoveObject("stove.png", 290f, 470f));
-        stoves.add(new StoveObject("stove.png", 560f, 470f));
-        stoves.add(new StoveObject("stove.png", 320f, 330f));
-        stoves.add(new StoveObject("stove.png", 590f, 330f));
+        stoves.add(new StoveObject("stove.png", 290f, 450f));
+        stoves.add(new StoveObject("stove.png", 540f, 450f));
+        stoves.add(new StoveObject("stove.png", 310f, 340f));
+        stoves.add(new StoveObject("stove.png", 560f, 340f));
 
-        objects.add(new BeefObject("beef.png", 560f, 730f));
-        objects.add(new GosuObject("gosu.png", 400f, 730f));
-        objects.add(new NoodleObject("noodle.png", 560f, 900f));
-        objects.add(new PotObject("pot.png", 850f, 320f));
-        objects.add(new WaterObject("water.png", 850f, 520f));
-        objects.add(new OnionObject("onion.png", 400f, 900f));
+        objects.add(new BeefObject("beef.png", 550f, 740f));
+        objects.add(new GosuObject("gosu.png", 380f, 760f));
+        objects.add(new NoodleObject("noodle.png", 560f, 930f));
+        objects.add(new OnionObject("onion.png", 380f, 930f));
+
+        objects.add(new PotObject("pot.png", 870f, 320f));
+        objects.add(new WaterObject("water.png", 830f, 520f));
 
         scoreText = modules.getFontManager().generateFont(50);
 
