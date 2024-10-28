@@ -37,11 +37,11 @@ public class RamenObject extends BaseObject {
         super(textureName, x, y);
         Arrays.stream(ItemStatus.values()).forEach(value -> isItem.put(value, false));
         Texture potTexture = modules.getTextureModule().makeTexture("pot.png");
-        Texture noodleTexture = modules.getTextureModule().makeTexture("noodle.png");
-        Texture onionTexture = modules.getTextureModule().makeTexture("onion.png");
-        Texture beefTexture = modules.getTextureModule().makeTexture("beef.png");
-        Texture gosuTexture = modules.getTextureModule().makeTexture("gosu.png");
-        Texture waterTexture = modules.getTextureModule().makeTexture("water.png");
+        Texture noodleTexture = modules.getTextureModule().makeTexture("noodle2.png");
+        Texture onionTexture = modules.getTextureModule().makeTexture("onion2.png");
+        Texture beefTexture = modules.getTextureModule().makeTexture("beef2.png");
+        Texture gosuTexture = modules.getTextureModule().makeTexture("gosu2.png");
+        Texture waterTexture = modules.getTextureModule().makeTexture("water2.png");
 
         this.pot = modules.getSpriteModule().makeSprite(potTexture);
         this.noodle = modules.getSpriteModule().makeSprite(noodleTexture);
