@@ -72,7 +72,7 @@ public class RamenStage implements Screen {
         this.batch = makeRamen.getBatch();
         this.camera = makeRamen.getCamera();
         this.background = modules.getTextureModule().makeTexture("stage.png");
-        this.character = new MainCharacter("character.png", 1600, 300);
+        this.character = new MainCharacter("character.png", 1500, 100);
 
         this.plat = new PlatObject("plate.png", 1120f, 400f);
         this.trash = new TrashObject("trash.png", 70f, 180f);
@@ -270,7 +270,7 @@ public class RamenStage implements Screen {
             );
             if (ramenExists) continue;
             if (!stove.isClicked(camera) || character.getItemStatus() != ItemStatus.POT) continue;
-            RamenObject ramenObject = new RamenObject("pot.png", stoveCenterX, stoveCenterY);
+            RamenObject ramenObject = new RamenObject("pot.png", stoveCenterX + 10, stoveCenterY + 10);
             ramenObject.getIsItem().put(ItemStatus.POT, true);
             ramens.add(ramenObject);
             resetHand();

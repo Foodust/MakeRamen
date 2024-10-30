@@ -42,7 +42,7 @@ public class MainCharacter extends BaseCharacter {
     public MainCharacter(String textureName, float x, float y) {
         super(textureName, x, y);
         this.headSprite = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("normal.png"));
-        this.headSprite.setPosition(x - 50, y + 100);
+        this.headSprite.setPosition(x+70, y+300);
         this.headSprite.setScale(0.5f);
 
         this.normal = modules.getTextureModule().makeTexture("normal.png");
@@ -73,7 +73,7 @@ public class MainCharacter extends BaseCharacter {
         rotationTime += deltaTime;
         if (nowStatusTime >= 3f) {
             characterStatus = CharacterStatus.NORMAL;
-            //headSprite.setTexture(normal);
+            headSprite.setTexture(normal);
             nowStatusTime = 0f;
         }
         headSprite.setOrigin(sprite.getWidth() / 2, 0);

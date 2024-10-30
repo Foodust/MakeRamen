@@ -28,7 +28,7 @@ public class RamenObject extends BaseObject {
     private final Sprite water;
     private final Music boilMusic;
 
-    private final List<Texture> objets = new ArrayList<>();
+    private final List<Sprite> objets = new ArrayList<>();
 
     private Float cookTime = 0f;
     private Float maxCookTime = 13f;
@@ -50,12 +50,12 @@ public class RamenObject extends BaseObject {
         this.gosu = modules.getSpriteModule().makeSprite(gosuTexture);
         this.water = modules.getSpriteModule().makeSprite(waterTexture);
 
-        objets.add(potTexture);
-        objets.add(noodleTexture);
-        objets.add(onionTexture);
-        objets.add(beefTexture);
-        objets.add(gosuTexture);
-        objets.add(waterTexture);
+        objets.add(pot);
+        objets.add(noodle);
+        objets.add(onion);
+        objets.add(beef);
+        objets.add(gosu);
+        objets.add(water);
 
         updatePosition();
         boilMusic = modules.getSoundModule().makeSound("boiled.wav", 0.3f, true);
@@ -99,20 +99,20 @@ public class RamenObject extends BaseObject {
 
     private void updatePotColor() {
         if (cookTime > maxCookTime) {
-            if(pot.getColor().r != 0){
+            if (pot.getColor().r != 0) {
                 modules.getSoundModule().makeSound("burn.wav", 0.5f);
             }
             pot.setColor(0, 0, 0, 1);
         } else {
             float alpha = Math.min(cookTime / 20, 1f); // 알파값으로 사용
             pot.setColor(1 - alpha, 1 - alpha, 1 - alpha, 1);
+            objets.forEach(object -> object.setColor(1.1f - alpha, 1.1f - alpha, 1.1f - alpha, 1));
         }
     }
 
     @Override
     public void dispose() {
         super.dispose();
-        objets.forEach(Texture::dispose);
         isItem.clear();
         boilMusic.dispose();
     }
