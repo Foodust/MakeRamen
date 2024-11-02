@@ -42,8 +42,7 @@ public class MainCharacter extends BaseCharacter {
     public MainCharacter(String textureName, float x, float y) {
         super(textureName, x, y);
         this.headSprite = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("normal.png"));
-        this.headSprite.setPosition(x+70, y+300);
-        this.headSprite.setScale(0.5f);
+        this.headSprite.setPosition(x+90, y+280);
 
         this.normal = modules.getTextureModule().makeTexture("normal.png");
 //        this.noGosu = modules.getTextureModule().makeTexture("noGosu.png");

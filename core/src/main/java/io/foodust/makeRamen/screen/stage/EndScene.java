@@ -44,7 +44,7 @@ public class EndScene implements Screen {
         this.quitButton = new QuitButton("quit.png", 1200, 200);
 
         this.scoreText = modules.getFontManager().generateFont(70);
-        this.endCharacter = new MainCharacter("character.png", 1600, 600);
+        this.endCharacter = new MainCharacter("character.png", 1500, 200);
         head();
     }
 
