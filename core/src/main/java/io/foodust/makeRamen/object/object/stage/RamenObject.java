@@ -30,6 +30,8 @@ public class RamenObject extends BaseObject {
 
     private final List<Sprite> objets = new ArrayList<>();
 
+    private Boolean isMove = false;
+
     private Float cookTime = 0f;
     private Float maxCookTime = 13f;
 
@@ -64,6 +66,7 @@ public class RamenObject extends BaseObject {
 
 
     public void move(float x, float y) {
+        isMove = true;
         sprite.setPosition(x, y);
         updatePosition();
         updateBounds();
@@ -81,7 +84,9 @@ public class RamenObject extends BaseObject {
 
     @Override
     public void draw(SpriteBatch batch) {
-        cookTime += Gdx.graphics.getDeltaTime();
+        if (!isMove)
+            cookTime += Gdx.graphics.getDeltaTime();
+
         updatePotColor();
         isItem.forEach((key, value) -> {
             if (value) {
