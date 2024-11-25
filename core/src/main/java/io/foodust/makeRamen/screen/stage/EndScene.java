@@ -40,7 +40,7 @@ public class EndScene implements Screen {
         this.score = score;
 
         this.background = modules.getTextureModule().makeTexture("background.png");
-        this.restartButton = new RestartButton("enter.png", 700, 200);
+        this.restartButton = new RestartButton("restart.png", 700, 200);
         this.quitButton = new QuitButton("quit.png", 1200, 200);
 
         this.scoreText = modules.getFontManager().generateFont(70);

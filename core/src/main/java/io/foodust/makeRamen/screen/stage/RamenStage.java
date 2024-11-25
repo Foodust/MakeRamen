@@ -68,6 +68,8 @@ public class RamenStage implements Screen {
     private final Music music;
 
     public RamenStage(MakeRamen makeRamen) {
+        TimeObject.nowLimitTime = TimeObject.maxLimitTime;
+
         this.makeRamen = makeRamen;
         this.batch = makeRamen.getBatch();
         this.camera = makeRamen.getCamera();
@@ -98,7 +100,7 @@ public class RamenStage implements Screen {
 
         scoreText = modules.getFontManager().generateFont(50);
 
-        music = modules.getSoundModule().makeSound("game.wav",0.7f,true);
+        music = modules.getSoundModule().makeSound("game.wav", 0.7f, true);
     }
 
     @Override
@@ -319,6 +321,7 @@ public class RamenStage implements Screen {
         }
         return character.playAngry();
     }
+
     private void resetHand() {
         character.setClickObject(null);
         character.setItemStatus(ItemStatus.NONE);
