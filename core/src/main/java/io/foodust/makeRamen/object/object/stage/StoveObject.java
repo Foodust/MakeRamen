@@ -28,7 +28,7 @@ public class StoveObject extends BaseObject {
 
     public StoveObject(String textureName, float x, float y) {
         super(textureName, x, y);
-        fireAnimation = modules.getAnimationModule().loadAnimation("run.png", 0.025f);
+        fireAnimation = modules.getAnimationModule().loadAnimation("fire.png", 0.025f);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class StoveObject extends BaseObject {
         super.draw(batch);
         stateTime += Gdx.graphics.getDeltaTime();
         TextureRegion keyFrame = fireAnimation.getKeyFrame(stateTime, true);
-        batch.draw(keyFrame, getSprite().getX(), getSprite().getY());
+        batch.draw(keyFrame, getSprite().getOriginX(), getSprite().getOriginY());
     }
 }

@@ -31,7 +31,6 @@ public class MainCharacter extends BaseCharacter {
     private BaseObject clickObject = null;
     private ItemStatus itemStatus = ItemStatus.NONE;
 
-    private Float nowStatusTime = 0f;
     private CharacterStatus characterStatus = CharacterStatus.NORMAL;
 
     private Float rotationTime = 0f;
@@ -42,17 +41,11 @@ public class MainCharacter extends BaseCharacter {
     public MainCharacter(String textureName, float x, float y) {
         super(textureName, x, y);
         this.headSprite = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("normal.png"));
-        this.headSprite.setPosition(x+90, y+280);
+        this.headSprite.setPosition(x + 90, y + 280);
+        this.headSprite.setScale(0.75f, 0.75f);
+        this.sprite.setScale(0.75f, 0.75f);
 
         this.normal = modules.getTextureModule().makeTexture("normal.png");
-//        this.noGosu = modules.getTextureModule().makeTexture("noGosu.png");
-//        this.noRamen = modules.getTextureModule().makeTexture("noRamen.png");
-//        this.good = modules.getTextureModule().makeTexture("good.png");
-//        this.perfect = modules.getTextureModule().makeTexture("perfect.png");
-//        this.excellent = modules.getTextureModule().makeTexture("excellent.png");
-//        this.angry = modules.getTextureModule().makeTexture("angry.png");
-//        this.veryAngry = modules.getTextureModule().makeTexture("veryAngry.png");
-
     }
 
     @Override
@@ -68,71 +61,50 @@ public class MainCharacter extends BaseCharacter {
 
     public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        nowStatusTime += deltaTime;
         rotationTime += deltaTime;
-        if (nowStatusTime >= 3f) {
-            characterStatus = CharacterStatus.NORMAL;
-            headSprite.setTexture(normal);
-            nowStatusTime = 0f;
-        }
         headSprite.setOrigin(sprite.getWidth() / 2, 0);
 
-        float rotation = maxRotation * MathUtils.sin(rotationTime * (rotationSpeed * (TimeObject.maxLimitTime / Math.max(TimeObject.nowLimitTime, 0.1f))));
+        float rotation = maxRotation * MathUtils.sin(rotationTime * (rotationSpeed * (TimeObject.maxLimitTime / Math.max(TimeObject.nowLimitTime, 10f))));
         headSprite.setRotation(rotation);
     }
 
     public long playNoGosu() {
-        characterStatus = CharacterStatus.NO_GOSU;
         modules.getSoundModule().makeSound("noGosu.wav", characterSound);
-//        headSprite.setTexture(noGosu);
         return -150;
     }
 
     public long playNoRamen() {
-        characterStatus = CharacterStatus.NO_RAMEN;
         modules.getSoundModule().makeSound("noRamen.wav", characterSound);
-//        headSprite.setTexture(noRamen);
         return -200;
     }
 
     public void playNormal() {
-        characterStatus = CharacterStatus.NORMAL;
         modules.getSoundModule().makeSound("normal.wav", characterSound);
-//        headSprite.setTexture(normal);
     }
 
     public long playGood() {
-        characterStatus = CharacterStatus.GOOD;
         modules.getSoundModule().makeSound("good.wav", characterSound);
-//        headSprite.setTexture(good);
         return 50;
     }
 
     public long playPerfect() {
         characterStatus = CharacterStatus.PERFECT;
         modules.getSoundModule().makeSound("great.wav", characterSound);
-//        headSprite.setTexture(perfect);
         return 100;
     }
 
     public long playExcellent() {
-        characterStatus = CharacterStatus.EXCELLENT;
         modules.getSoundModule().makeSound("excellent.wav", characterSound);
-//        headSprite.setTexture(excellent);
         return 200;
     }
 
     public long playAngry() {
-        characterStatus = CharacterStatus.ANGRY;
         modules.getSoundModule().makeSound("angry.wav", characterSound);
-//        headSprite.setTexture(angry);
         return -60;
     }
 
     public long playVeryAngry() {
-        characterStatus = CharacterStatus.VERY_ANGRY;
         modules.getSoundModule().makeSound("veryAngry.wav", characterSound);
-//        headSprite.setTexture(veryAngry);
         return -120;
     }
 
