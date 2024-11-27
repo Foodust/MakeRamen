@@ -39,7 +39,7 @@ public class EndScene implements Screen {
         this.camera = makeRamen.getCamera();
         this.score = score;
 
-        this.background = modules.getTextureModule().makeTexture("background.png");
+        this.background = modules.getTextureModule().makeTexture("end.png");
         this.restartButton = new RestartButton("restart.png", 700, 200);
         this.quitButton = new QuitButton("quit.png", 1200, 200);
 
@@ -59,10 +59,10 @@ public class EndScene implements Screen {
         batch.begin();
         batch.draw(background, 0, 0);
 
-        scoreText.draw(batch, score.toString(), ObjectManager.X / 2, ObjectManager.Y / 2);
+        scoreText.draw(batch, score.toString(), ObjectManager.X / 2 - 100, ObjectManager.Y / 2 + 100);
         restartButton.draw(batch);
         quitButton.draw(batch);
-        endCharacter.draw(batch);
+//        endCharacter.draw(batch);
 
         batch.end();
         update();
