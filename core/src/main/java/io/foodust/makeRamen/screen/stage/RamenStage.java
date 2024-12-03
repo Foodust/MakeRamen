@@ -298,12 +298,12 @@ public class RamenStage implements Screen {
 
     private long getScore(Boolean isGosu, RamenObject ramen, long itemCount) {
         // 특별한 경우 처리
-        if (isGosu && random.nextInt(100) == 0) {
-            return character.playNoGosu();
-        }
-        if (random.nextInt(100) == 1) {
-            return character.playNoRamen();
-        }
+//        if (isGosu && random.nextInt(100) == 0) {
+//            return character.playNoGosu();
+//        }
+//        if (random.nextInt(100) == 1) {
+//            return character.playNoRamen();
+//        }
         // 일반적인 경우 처리
         float cookTime = ramen.getCookTime();
 

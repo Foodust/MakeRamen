@@ -58,6 +58,9 @@ public class RamenObject extends BaseObject {
         objets.add(beef);
         objets.add(gosu);
         objets.add(water);
+        objets.forEach(object -> {
+            object.setScale(0.8f);
+        });
 
         updatePosition();
         boilMusic = modules.getSoundModule().makeSound("boiled.wav", 0.3f, true);

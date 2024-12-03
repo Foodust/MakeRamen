@@ -43,7 +43,7 @@ public class MainCharacter extends BaseCharacter {
         this.headSprite = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("normal.png"));
         this.headSprite.setPosition(x + 90, y + 280);
         this.headSprite.setScale(0.75f, 0.75f);
-        this.sprite.setScale(0.75f, 0.75f);
+        this.sprite.setScale(0.65f, 0.65f);
 
         this.normal = modules.getTextureModule().makeTexture("normal.png");
     }

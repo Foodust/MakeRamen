@@ -7,6 +7,7 @@ public class PotObject extends BaseObject {
     public PotObject(String textureName, float x, float y) {
         super(textureName,x,y);
         this.setItemStatus(ItemStatus.POT);
-        this.sprite.setScale(0.75F, 0.75F);
+        this.sprite.setScale(0.65f, 0.65f);
+
     }
 }

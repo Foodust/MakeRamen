@@ -7,5 +7,6 @@ public class OnionObject extends BaseObject {
     public OnionObject(String textureName, float x, float y) {
         super(textureName,x,y);
         this.setItemStatus(ItemStatus.ONION);
+        setScale(0.7f);
     }
 }
