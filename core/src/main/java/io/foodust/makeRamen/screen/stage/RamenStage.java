@@ -117,9 +117,11 @@ public class RamenStage implements Screen {
         batch.draw(background, 0, 0);
         trash.getSprite().draw(batch);
         plat.getSprite().draw(batch);
+
         timeObject.draw(batch);
+
         character.draw(batch);
-        scoreText.draw(batch, score.toString(), 1400f, 700f);
+        scoreText.draw(batch, score.toString(), 1660f, 870f);
 
         for (StoveObject stove : stoves) {
             stove.draw(batch);

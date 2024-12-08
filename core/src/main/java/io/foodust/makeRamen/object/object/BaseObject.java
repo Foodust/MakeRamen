@@ -63,6 +63,11 @@ public class BaseObject {
         updateBounds();
     }
 
+    public void setScale(float x,float y) {
+        sprite.setScale(x,y);
+        updateBounds();
+    }
+
     public Boolean isClicked(OrthographicCamera camera) {
         return ObjectManager.getInstance().getModules().getInputModule().getTouch(camera, this.getRectangle());
     }

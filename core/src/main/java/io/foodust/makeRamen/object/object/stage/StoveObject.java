@@ -23,19 +23,19 @@ import java.util.List;
 @Setter
 public class StoveObject extends BaseObject {
 
-    private final Animation<TextureRegion> fireAnimation;
+//    private final Animation<TextureRegion> fireAnimation;
     private Float stateTime = 0f;
 
     public StoveObject(String textureName, float x, float y) {
         super(textureName, x, y);
-        fireAnimation = modules.getAnimationModule().loadAnimation("fire.png", 0.025f);
+//        fireAnimation = modules.getAnimationModule().loadAnimation("fire.png", 0.025f);
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        stateTime += Gdx.graphics.getDeltaTime();
-        TextureRegion keyFrame = fireAnimation.getKeyFrame(stateTime, true);
-        batch.draw(keyFrame, getSprite().getOriginX(), getSprite().getOriginY());
+//        stateTime += Gdx.graphics.getDeltaTime();
+//        TextureRegion keyFrame = fireAnimation.getKeyFrame(stateTime, true);
+//        batch.draw(keyFrame, getSprite().getOriginX(), getSprite().getOriginY());
     }
 }

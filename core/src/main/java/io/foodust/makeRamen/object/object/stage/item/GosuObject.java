@@ -7,6 +7,6 @@ public class GosuObject extends BaseObject {
     public GosuObject(String textureName, float x, float y) {
         super(textureName,x,y);
         this.setItemStatus(ItemStatus.GOSU);
-        setScale(0.7f);
+//        setScale(0.7f);
     }
 }

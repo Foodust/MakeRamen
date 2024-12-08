@@ -7,6 +7,6 @@ public class WaterObject extends BaseObject {
     public WaterObject(String textureName, float x, float y) {
         super(textureName,x,y);
         this.setItemStatus(ItemStatus.WATER);
-        setScale(0.7f);
+//        setScale(0.8f);
     }
 }

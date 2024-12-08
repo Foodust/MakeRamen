@@ -17,9 +17,10 @@ public class TimeObject extends BaseObject {
     private final Music music;
     public TimeObject(String textureName, float x, float y) {
         super(textureName, x, y);
-        this.bar = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("beef.png"));
+        this.bar = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("bar.png"));
         this.bar.setPosition(x, y);
-        this.maxWidth = sprite.getWidth();
+        this.maxWidth = bar.getWidth();
+
         music = modules.getSoundModule().makeSound("time.wav", 0.3f, true);
     }
 
@@ -31,13 +32,13 @@ public class TimeObject extends BaseObject {
 
     @Override
     public void update() {
-        nowLimitTime -= Gdx.graphics.getDeltaTime() * 39;
+        nowLimitTime -= Gdx.graphics.getDeltaTime();
         if (nowLimitTime <= 0) {
             music.stop();
             modules.getSoundModule().makeSound("end.wav",1f);
             return;
         }
         float progress = nowLimitTime / maxLimitTime;
-        sprite.setSize(maxWidth * progress, sprite.getHeight());
+        bar.setSize(maxWidth * progress, bar.getHeight());
     }
 }
