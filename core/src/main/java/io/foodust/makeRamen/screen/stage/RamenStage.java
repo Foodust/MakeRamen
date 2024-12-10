@@ -294,18 +294,10 @@ public class RamenStage implements Screen {
 
     private void calculateScore(RamenObject ramen) {
         long itemCount = ramen.getIsItem().entrySet().stream().filter(Map.Entry::getValue).count();
-        boolean isGosu = ramen.getIsItem().entrySet().stream().anyMatch(filter -> filter.getKey().equals(ItemStatus.GOSU));
-        score += getScore(isGosu, ramen, itemCount);
+        score += getScore(ramen, itemCount);
     }
 
-    private long getScore(Boolean isGosu, RamenObject ramen, long itemCount) {
-        // 특별한 경우 처리
-//        if (isGosu && random.nextInt(100) == 0) {
-//            return character.playNoGosu();
-//        }
-//        if (random.nextInt(100) == 1) {
-//            return character.playNoRamen();
-//        }
+    private long getScore(RamenObject ramen, long itemCount) {
         // 일반적인 경우 처리
         float cookTime = ramen.getCookTime();
 
