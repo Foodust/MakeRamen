@@ -13,16 +13,19 @@ public class TimeObject extends BaseObject {
     private final Sprite bar;
     private final Sprite bar2;
     private final Float maxWidth;
-    public static Float maxLimitTime = 300f;
+    public static Float maxLimitTime = 90f;
     public static Float nowLimitTime = maxLimitTime;
     private final Music music;
     public TimeObject(String textureName, float x, float y) {
         super(textureName, x, y);
+        setScale(.6f);
         this.bar = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("bar.png"));
-        this.bar.setPosition(x, y);
+        this.bar.setCenter(x, y);
+        this.bar.setScale(.6f);
 
         this.bar2 = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("bar2.png"));
-        this.bar2.setPosition(x, y);
+        this.bar2.setCenter(x, y);
+        this.bar2.setScale(.6f);
 
         this.maxWidth = bar.getWidth();
 
@@ -39,7 +42,7 @@ public class TimeObject extends BaseObject {
     @Override
     public void update() {
         nowLimitTime -= Gdx.graphics.getDeltaTime();
-        if (nowLimitTime <= 0) {
+        if (nowLimitTime <= 20) {
             music.stop();
             modules.getSoundModule().makeSound("end.wav",1f);
             return;

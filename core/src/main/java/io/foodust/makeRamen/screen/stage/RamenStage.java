@@ -4,12 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.foodust.makeRamen.game.MakeRamen;
@@ -79,11 +77,14 @@ public class RamenStage implements Screen {
         this.plat = new PlatObject("plate.png", 1120f, 400f);
         this.trash = new TrashObject("trash.png", 70f, 180f);
 
-        this.timeObject = new TimeObject("time.png", ObjectManager.X / 2, ObjectManager.Y - 200);
+        this.timeObject = new TimeObject("time.png", 1100, ObjectManager.Y - 200);
 
-        this.restartButton = new RestartButton("enter.png", ObjectManager.X / 2, ObjectManager.Y / 2 + 200);
+        this.restartButton = new RestartButton("restart.png", ObjectManager.X / 2, ObjectManager.Y / 2 + 200);
         this.quitButton = new QuitButton("quit.png", ObjectManager.X / 2, ObjectManager.Y / 2);
         this.white = modules.getTextureModule().makeTexture("white.png");
+
+        this.scoreText = modules.getFontManager().generateFont(50, Color.BLACK);
+        this.music = modules.getSoundModule().makeSound("game.wav", 0.7f, true);
 
         stoves.add(new StoveObject("stove.png", 290f, 450f));
         stoves.add(new StoveObject("stove.png", 540f, 450f));
@@ -98,9 +99,6 @@ public class RamenStage implements Screen {
         objects.add(new PotObject("pot.png", 870f, 320f));
         objects.add(new WaterObject("water.png", 830f, 520f));
 
-        scoreText = modules.getFontManager().generateFont(50);
-
-        music = modules.getSoundModule().makeSound("game.wav", 0.7f, true);
     }
 
     @Override
@@ -121,7 +119,7 @@ public class RamenStage implements Screen {
         timeObject.draw(batch);
 
         character.draw(batch);
-        scoreText.draw(batch, score.toString(), 1660f, 870f);
+        scoreText.draw(batch, score.toString(), 1100,1000);
 
         for (StoveObject stove : stoves) {
             stove.draw(batch);
@@ -185,6 +183,8 @@ public class RamenStage implements Screen {
         scoreText.dispose();
         timeObject.dispose();
 
+        music.dispose();
+
         trash.dispose();
         white.dispose();
         quitButton.dispose();
@@ -213,7 +213,7 @@ public class RamenStage implements Screen {
     }
 
     private Boolean updateTime() {
-        if (TimeObject.nowLimitTime > 0) return false;
+        if (TimeObject.nowLimitTime > 20) return false;
 
         if (delayTime == 3f) {
             music.stop();
@@ -235,6 +235,7 @@ public class RamenStage implements Screen {
         if (!stopGame) return false;
 
         if (restartButton.isClicked(camera)) {
+            dispose();
             makeRamen.setScreen(new RamenStage(makeRamen));
         }
         if (quitButton.isClicked(camera)) {

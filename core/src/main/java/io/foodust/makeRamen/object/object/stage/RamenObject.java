@@ -59,7 +59,7 @@ public class RamenObject extends BaseObject {
         objets.add(gosu);
         objets.add(water);
         objets.forEach(object -> {
-            object.setScale(0.8f);
+            object.setScale(0.92f);
         });
 
         updatePosition();
