@@ -11,6 +11,7 @@ import lombok.Getter;
 public class TimeObject extends BaseObject {
 
     private final Sprite bar;
+    private final Sprite bar2;
     private final Float maxWidth;
     public static Float maxLimitTime = 300f;
     public static Float nowLimitTime = maxLimitTime;
@@ -19,6 +20,10 @@ public class TimeObject extends BaseObject {
         super(textureName, x, y);
         this.bar = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("bar.png"));
         this.bar.setPosition(x, y);
+
+        this.bar2 = modules.getSpriteModule().makeSprite(modules.getTextureModule().makeTexture("bar2.png"));
+        this.bar2.setPosition(x, y);
+
         this.maxWidth = bar.getWidth();
 
         music = modules.getSoundModule().makeSound("time.wav", 0.3f, true);
@@ -26,8 +31,9 @@ public class TimeObject extends BaseObject {
 
     @Override
     public void draw(SpriteBatch batch) {
-        super.draw(batch);
+        this.bar2.draw(batch);
         this.bar.draw(batch);
+        super.draw(batch);
     }
 
     @Override
