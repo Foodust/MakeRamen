@@ -3,6 +3,7 @@ package io.foodust.makeRamen.screen.stage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -43,7 +44,7 @@ public class EndScene implements Screen {
         this.restartButton = new RestartButton("restart.png", 700, 200);
         this.quitButton = new QuitButton("quit.png", 1200, 200);
 
-        this.scoreText = modules.getFontManager().generateFont(70);
+        this.scoreText = modules.getFontManager().generateFont(70, Color.BLACK);
         this.endCharacter = new MainCharacter("character.png", 1500, 200);
         head();
     }

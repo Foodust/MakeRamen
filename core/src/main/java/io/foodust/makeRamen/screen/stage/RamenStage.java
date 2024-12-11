@@ -7,7 +7,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.foodust.makeRamen.game.MakeRamen;
@@ -119,7 +120,7 @@ public class RamenStage implements Screen {
         timeObject.draw(batch);
 
         character.draw(batch);
-        scoreText.draw(batch, score.toString(), 1100,1000);
+        scoreText.draw(batch, score.toString(), 1100, 1000);
 
         for (StoveObject stove : stoves) {
             stove.draw(batch);
@@ -189,6 +190,9 @@ public class RamenStage implements Screen {
         white.dispose();
         quitButton.dispose();
         restartButton.dispose();
+
+        if (heldObject != null)
+            heldObject.dispose();
     }
 
     private void update() {
@@ -221,6 +225,7 @@ public class RamenStage implements Screen {
         }
         delayTime -= Gdx.graphics.getDeltaTime();
         if (delayTime < 0) {
+            dispose();
             makeRamen.setScreen(new EndScene(makeRamen, score));
         }
         return true;
